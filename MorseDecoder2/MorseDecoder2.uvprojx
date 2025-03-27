@@ -10,8 +10,8 @@
       <TargetName>Target_1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6230000::V6.23::ARMCLANG</pCCUsed>
-      <uAC6>1</uAC6>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC4088FET208</Device>
@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -323,7 +323,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -472,42 +472,32 @@
             <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\delay.c</FilePath>
+              <FilePath>.\drivers\delay.c</FilePath>
             </File>
             <File>
               <FileName>delay.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\delay.h</FilePath>
+              <FilePath>.\drivers\delay.h</FilePath>
             </File>
             <File>
               <FileName>lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\lcd.c</FilePath>
+              <FilePath>.\drivers\lcd.c</FilePath>
             </File>
             <File>
               <FileName>lcd.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\lcd.h</FilePath>
+              <FilePath>.\drivers\lcd.h</FilePath>
             </File>
             <File>
               <FileName>leds.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\leds.c</FilePath>
+              <FilePath>.\drivers\leds.c</FilePath>
             </File>
             <File>
               <FileName>leds.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\leds.h</FilePath>
-            </File>
-            <File>
-              <FileName>switches.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\switches.c</FilePath>
-            </File>
-            <File>
-              <FileName>switches.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4-GPIOLabBasicUI\src\switches.h</FilePath>
+              <FilePath>.\drivers\leds.h</FilePath>
             </File>
           </Files>
         </Group>

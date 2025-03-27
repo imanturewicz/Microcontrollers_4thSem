@@ -1,1 +1,2 @@
-./objects/main.o: main.c adc_conversion.h
+.\objects\main.o: main.c
+.\objects\main.o: adc_conversion.h

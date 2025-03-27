@@ -18,12 +18,32 @@
 #define LED_ON  0
 #define LED_OFF 1
 
+// Smoothing factor for the IIR filter
+#define ALPHA 0.1f
+
+// Global variable for filtered ADC value.
+static float filtered_adc = 0.0f;
+
+/**
+ * @brief Updates the IIR filter with the latest ADC sample.
+ *
+ * Uses the formula:
+ *     filtered_adc = ALPHA * raw_adc + (1 - ALPHA) * filtered_adc
+ *
+ * @param raw_adc The latest raw ADC sample.
+ * @return The updated filtered ADC value.
+ */
+static float update_iir_filter(int raw_adc) {
+    filtered_adc = ALPHA * raw_adc + (1.0f - ALPHA) * filtered_adc;
+    return filtered_adc;
+}
 /**
  * @brief A simple busy-loop delay function (in milliseconds).
  *
  * This function uses nested loops. You might need to adjust the inner loop count
  * based on your system clock.
  */
+ 
 static void simple_delay_ms(unsigned int ms) {
     volatile unsigned int i, j;
     for (i = 0; i < ms; i++) {
@@ -53,39 +73,43 @@ static void blink_feedback_led(void) {
  * and displays both the raw ADC value and the voltage on the second line of the LCD.
  */
 void run_adc_conversion(void) {
-    char msg[32];
+     char msg[32];
 
-    // Initialize ADC: this sets up the ADC peripheral and configures the analog input pin.
+    // Initialize ADC.
     adc_init();
 
-    // Initialize the LCD and display a header message.
+    // Initialize LCD and display a startup message on the first line.
     lcd_init();
     lcd_clear();
     lcd_print("System Running");
 
-    // Configure the feedback LED pin as output and set it off initially.
+    // Configure the feedback LED as output and turn it off.
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
 
-    // Main loop: continuously perform ADC conversion.
-    while (1) {
-        // Read the ADC value (12-bit result, range 0 to ADC_MASK, typically 4095).
-        int adc_val = adc_read();
+    // Initialize the filter with the first ADC reading.
+    filtered_adc = (float)adc_read();
 
-        // Blink the feedback LED to indicate an ADC conversion event.
+    while (1) {
+        // Read the raw ADC value (expected range: 0 to ADC_MASK, typically 0 to 4095)
+        int raw_adc = adc_read();
+
+        // Update the filtered ADC value using our IIR filter.
+        float filt = update_iir_filter(raw_adc);
+
+        // Blink the feedback LED to indicate a conversion event.
         blink_feedback_led();
 
-        // Scale the ADC value to a voltage.
-        float voltage = adc_val * (VREF / ADC_MASK);
-
-        // Format the ADC value and voltage into a string.
-        sprintf(msg, "ADC:%d V:%.2f", adc_val, voltage);
-
-        // Set the LCD cursor to the second line (row 1) and display the message.
+        // Clear the LCD's second line by printing 16 spaces.
         lcd_set_cursor(0, 1);
+        lcd_print("                "); // 16 spaces
+
+        // Set the cursor again and format the message.
+        lcd_set_cursor(0, 1);
+        sprintf(msg, "R:%d F:%d", raw_adc, (int)(filt + 0.5f));
         lcd_print(msg);
 
-        // Delay 100 ms between conversions.
-        simple_delay_ms(100);
+        // Delay for 100 ms before the next reading.
+        delay_ms(100);
     }
 }

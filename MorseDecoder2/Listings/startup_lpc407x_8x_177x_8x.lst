@@ -461,10 +461,10 @@ ARM Macro Assembler    Page 8
 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=.\objects\startup_lpc407x_8x_177x_8x.d -o.\objects\startup_l
-pc407x_8x_177x_8x.o -I.\RTE\Device\LPC4088FET208 -I.\RTE\_Target_1 -IC:\Users\b
-radt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Include -IC:\Users\bradt\AppD
-ata\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\PrivateInclude -IC:\Users\bradt\AppDat
-a\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include -IC:\Users\bradt\AppData\L
+pc407x_8x_177x_8x.o -I.\RTE\Device\LPC4088FET208 -I.\RTE\_Target_1 -IC:\Users\T
+hirt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Include -IC:\Users\Thirt\AppD
+ata\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\PrivateInclude -IC:\Users\Thirt\AppDat
+a\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include -IC:\Users\Thirt\AppData\L
 ocal\Arm\Packs\Keil\LPC4000_DFP\2.2.2\Device\Include --predefine="__EVAL SETA 1
 " --predefine="__UVISION_VERSION SETA 542" --predefine="CORE_M4 SETA 1" --prede
 fine="_RTE_ SETA 1" --list=.\listings\startup_lpc407x_8x_177x_8x.lst RTE/Device
