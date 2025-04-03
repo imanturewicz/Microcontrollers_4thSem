@@ -1,0 +1,64 @@
+\documentclass{cce2014-design}
+\svnInfo $Id$
+
+% Document details
+\title{Design Brief: Morse Code Receiver System Group 4}
+\author{
+   Ignacy Manturewicz,
+   Bradley Tabone,
+   Aidan Cristina,
+   Ben Okubamicael,
+   
+   }
+\date{\svnMaxToday, Document v.\svnInfoMaxRevision}
+
+\begin{document}
+
+\maketitle
+
+\abstract{%
+This design brief outlines the development of a Morse code receiver using an ARM Cortex-M4 microcontroller. The project aims to decode Morse code signals 
+effectively and display them, addressing the need for reliable low-bandwidth communication in [specific applications or scenarios].
+This system will integrate real-time processing, user-friendly interfacing, and efficient use of hardware resources.
+   }
+
+\section{Introduction}
+Write an introduction, explaining the purpose and background of this project.
+Give a brief description of the game to be implemented.
+References to be cited like so \cite{stroustrup2000}.
+Also include an overview of this document.
+
+\section{System Design}
+
+
+\subsection{Hardware Configuration}
+
+With regards to hardware, our Morse code receiver will be made up of 3 main components, a device, a breadboard and the ARM MK4 
+microcontroller. The project begins with a device such as a laptop which will hold the Morse code audio signals. The audio signals
+ are then outputted through the audio jack port of the computer and connected to the breadboard via jumper wire adapters. This 
+ facilitates the physical connection between the two devices which allos the audio to be directly inputted into the breadboard's 
+ circuitry where we will move onto the modification of the audio signals. Lastly, we connect jumper wires to the output pins of the breadboard 
+ directly to the audio inputs of our microcontroller in order to continue with processing and translation of the audio signals to
+ actual text which will be displayed on the LCD screen found within the microcontroller.
+
+ \subsection{Software Configuration}
+
+ With regards to software, we will be making use of Keil Uvision 5 which is used efficiently to interact directly with the 
+ microcontroller. In this software we will write C code which will deal with the filtering/amplification of the audio signal obtained
+ from the breadboard as well as code for translating the morse code into actual text which will then be outputted on the LCD screen.
+
+
+
+
+
+\section{Management}
+Include a time plan.
+Show task dependencies. - Functionality dependencies ex. Testing depends on the functionality being done. How functions depend on one another.
+How are these going to be managed?
+
+\section{Closure}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}

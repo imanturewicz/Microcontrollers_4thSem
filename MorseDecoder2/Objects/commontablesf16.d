@@ -1,0 +1,13 @@
+.\objects\commontablesf16.o: C:/Users/binya/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/CommonTablesF16.c
+.\objects\commontablesf16.o: C:/Users/binya/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/arm_common_tables_f16.c
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Include\arm_math_types_f16.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Include\arm_math_types.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdint.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\math.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\float.h
+.\objects\commontablesf16.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\limits.h
+.\objects\commontablesf16.o: C:/Users/binya/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/arm_const_structs_f16.c
+.\objects\commontablesf16.o: C:/Users/binya/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/arm_mve_tables_f16.c
