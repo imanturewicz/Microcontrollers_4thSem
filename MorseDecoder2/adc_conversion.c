@@ -5,6 +5,7 @@
 #include "lcd.h"            // LCD driver functions: lcd_init(), lcd_clear(), lcd_print(), lcd_set_cursor()
 #include "adc_conversion.h"
 #include <stdio.h>          // For sprintf()
+#include <string.h>         // For string operations
 
 #define VREF 3.3            // ADC reference voltage in volts
 
@@ -92,12 +93,12 @@ void run_adc_conversion(void) {
 
     // Demodulation configuration
     #define THRESHOLD       50
-		//#//define BASE						2000
-    #define DOT_DURATION     1
-    #define DASH_DURATION    3
-		#define DOT_GAP						1
-    #define SYMBOL_GAP       3
-    #define WORD_GAP         7
+    #define BASE						2000
+    #define DOT_DURATION     2
+    #define DASH_DURATION    5
+    #define DOT_GAP						1
+    #define SYMBOL_GAP       6
+    #define WORD_GAP         14
 
     int tone_duration = 0;
     int silence_duration = 0;
@@ -106,8 +107,11 @@ void run_adc_conversion(void) {
     char demod_buffer[128];
     int demod_index = 0;
 
+    char current_symbol[16];        // holds current group of . and - forming a Morse character/word
+    int current_symbol_index = 0;   // current position in that buffer
+
     while (1) {
-				//delay_ms(200);
+        
         // Read the raw ADC value (expected range: 0 to ADC_MASK, typically 0 to 4095)
         int raw_adc = adc_read();
 
@@ -118,66 +122,62 @@ void run_adc_conversion(void) {
         blink_feedback_led();
 
         // Demodulation logic
-        int signal_active = (raw_adc > (BASE+THRESHOLD)/* || raw_adc < (BASE-THRESHOLD)*/);
+        int signal_active = (raw_adc> (BASE+THRESHOLD)/* || raw_adc < (BASE-THRESHOLD)*/);
 
-			
-				// Measuring how long the tone lasts
+        // Measuring how long the tone lasts
         if (signal_active) {
-            tone_duration++;  
-            silence_duration = 0;   //Reset silence time
+            tone_duration++;            //counts how long the tone is playing
+            silence_duration = 0;   //Reset silence time since active signal.
 
             if (!is_tone) {
-                is_tone = 1;
+                is_tone = 1;						//if we weren't in tone before, now we are
             }
 
         } else {
-            silence_duration++;
-				
+            silence_duration++; 
 
             if (is_tone) {
-                if (tone_duration >= DOT_DURATION && tone_duration < DASH_DURATION) {   // Dot detected
-                    lcd_set_cursor(0, 0);
-                    lcd_print("Detected: .    ");
-									//sprintf(msg, "Detected: %d", tone_duration);
-                    if (demod_index < sizeof(demod_buffer) - 1) {
-                        demod_buffer[demod_index++] = '.';
+                if (tone_duration >= 2 && tone_duration < DASH_DURATION) {  
+                    if (current_symbol_index < sizeof(current_symbol) - 1) {
+                        current_symbol[current_symbol_index++] = '.';  //  add to symbol group
                     }
                 } else if (tone_duration >= DASH_DURATION) { // dash detected
-                    lcd_set_cursor(0, 0);
-                    lcd_print("Detected: -     ");
-                    if (demod_index < sizeof(demod_buffer) - 1) {
-                        demod_buffer[demod_index++] = '-';
-                    }
-                }
-								else  { 
-                    lcd_set_cursor(0, 0);
-                    lcd_print("ERROR1          ");
-                    if (demod_index < sizeof(demod_buffer) - 1) {
-                        demod_buffer[demod_index++] = '-';
+                    if (current_symbol_index < sizeof(current_symbol) - 1) {
+                        current_symbol[current_symbol_index++] = '-';  // add to symbol group
                     }
                 }
                 tone_duration = 0;   // clean reset after tone ends(dot or dash)
                 is_tone = 0;       // mark that we're in silence now
             }
-						else if (silence_duration == DOT_GAP) {
+
+            if (silence_duration == SYMBOL_GAP || silence_duration == WORD_GAP) {
+                // Print current symbol group
+                current_symbol[current_symbol_index] = '\0';  // Null-terminate string
+						    
+						
                 lcd_set_cursor(0, 0);
-                lcd_print("Gap             ");
-                if (demod_index < sizeof(demod_buffer) - 1) {
-                    demod_buffer[demod_index++] = ' ';
-                }
-            }
-            else if (silence_duration == SYMBOL_GAP) {
+                lcd_print("                "); // Clear LCD line
+
                 lcd_set_cursor(0, 0);
-                lcd_print("Symbol gap     ");
-                if (demod_index < sizeof(demod_buffer) - 1) {
-                    demod_buffer[demod_index++] = ' ';
+                sprintf(msg, "Word: %s", current_symbol);
+                lcd_print(msg);
+							
+							{
+							// transltion logic  ?
+							}
+
+                // Append current_symbol to demod_buffer
+                int len = strlen(current_symbol);
+                if (demod_index + len < sizeof(demod_buffer) - 2) {   // makek sure there is room in demod_buffer[]
+                    for (int i = 0; i < len; i++) {
+                        demod_buffer[demod_index++] = current_symbol[i];
+                    }
+                    // Add space or slash for gap type
+                    demod_buffer[demod_index++] = (silence_duration == WORD_GAP) ? '/' : ' ';
+                    demod_buffer[demod_index] = '\0'; // Null terminate
                 }
-            } else if (silence_duration == WORD_GAP) {
-                lcd_set_cursor(0, 0);
-                lcd_print("Word gap        ");
-                if (demod_index < sizeof(demod_buffer) - 1) {
-                    demod_buffer[demod_index++] = '/';
-                }
+
+                current_symbol_index = 0;  //  Reset symbol buffer
             }
         }
 
@@ -196,6 +196,6 @@ void run_adc_conversion(void) {
         lcd_print(msg);
 
         // Delay for  ms before the next reading.
-        delay_ms(400);
+        delay_ms(100);
     }
 }

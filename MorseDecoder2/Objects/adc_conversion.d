@@ -14,3 +14,4 @@
 .\objects\adc_conversion.o: .\drivers\lcd.h
 .\objects\adc_conversion.o: adc_conversion.h
 .\objects\adc_conversion.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdio.h
+.\objects\adc_conversion.o: C:\Users\binya\AppData\Local\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h
