@@ -22,6 +22,8 @@
 // Smoothing factor for the IIR filter
 #define ALPHA 0.1f
 
+#define CLK 30
+
 // Global variable for filtered ADC value.
 static float filtered_adc = 0.0f;
 
@@ -63,6 +65,15 @@ static void blink_feedback_led(void) {
     gpio_set(P_LED_R, LED_OFF);
 }
 
+int Ignacy() {
+		long long sum = 0;
+		for(int i = 0; i < CLK; i++) {
+				sum += adc_read();
+				delay_ms(1);
+		}
+		return sum / CLK;
+}
+
 /**
  * @brief Runs the ADC conversion routine.
  *
@@ -95,7 +106,7 @@ void run_adc_conversion(void) {
     #define THRESHOLD       50
     #define BASE						2000
     #define DOT_DURATION     2
-    #define DASH_DURATION    5
+    #define DASH_DURATION    6
     #define DOT_GAP						1
     #define SYMBOL_GAP       6
     #define WORD_GAP         14
@@ -111,7 +122,8 @@ void run_adc_conversion(void) {
     int current_symbol_index = 0;   // current position in that buffer
 
     while (1) {
-        
+        //delay_ms(100);
+        int iggy = Ignacy();
         // Read the raw ADC value (expected range: 0 to ADC_MASK, typically 0 to 4095)
         int raw_adc = adc_read();
 
@@ -122,7 +134,7 @@ void run_adc_conversion(void) {
         blink_feedback_led();
 
         // Demodulation logic
-        int signal_active = (raw_adc> (BASE+THRESHOLD)/* || raw_adc < (BASE-THRESHOLD)*/);
+        int signal_active = (iggy > (BASE+THRESHOLD)/* || raw_adc < (BASE-THRESHOLD)*/);
 
         // Measuring how long the tone lasts
         if (signal_active) {
@@ -196,6 +208,5 @@ void run_adc_conversion(void) {
         lcd_print(msg);
 
         // Delay for  ms before the next reading.
-        delay_ms(100);
     }
 }
