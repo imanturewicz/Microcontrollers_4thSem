@@ -119,6 +119,8 @@ char morse_to_char(const char* symbol) {
 
 
 void run_adc_conversion(void) {
+		 char sentence[128] = "";
+		 int sentence_index = 0;
      char msg[32];
 
     // Initialize ADC.
@@ -208,21 +210,33 @@ void run_adc_conversion(void) {
                 lcd_print(msg);
 							
 							{
-								lcd_set_cursor(0, 1);
-								lcd_print("                "); 
-								lcd_set_cursor(0, 1);
+							if (current_symbol[0] != '\0') {
+								char translated = morse_to_char(current_symbol);
 
-								if (current_symbol[0] != '\0') {
-										char translated = morse_to_char(current_symbol);
-										lcd_print("Char: ");
-										lcd_put_char(translated);
-								} else {
-										lcd_print("Char: ");
+								if (sentence_index < sizeof(sentence) - 1) {
+								sentence[sentence_index++] = translated;
+								sentence[sentence_index] = '\0';
 								}
 
-								
-
+								current_symbol_index = 0;  // reset symbol
+							} else if (silence_duration == WORD_GAP) {
+								// Insert space on word gap
+								if (sentence_index < sizeof(sentence) - 1) {
+								sentence[sentence_index++] = ' ';
+								sentence[sentence_index] = '\0';
+								}
 							}
+
+							// Always update LCD line 2
+							int len = strlen(sentence);
+							const char* display_ptr = sentence;
+							if (len > 16) {
+								display_ptr = sentence + (len - 16);
+							}
+							lcd_set_cursor(0, 1);
+							lcd_print((char *)display_ptr);
+
+						  }
 
                 // Append current_symbol to demod_buffer
                 int len = strlen(current_symbol);
