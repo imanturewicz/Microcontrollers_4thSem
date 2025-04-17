@@ -22,7 +22,7 @@
 // Smoothing factor for the IIR filter
 #define ALPHA 0.1f
 
-#define CLK 30
+#define CLK 5
 
 // Global variable for filtered ADC value.
 static float filtered_adc = 0.0f;
@@ -84,6 +84,40 @@ int Ignacy() {
  * scales the ADC value to a voltage (using a 3.3V reference),
  * and displays both the raw ADC value and the voltage on the second line of the LCD.
  */
+
+char morse_to_char(const char* symbol) {
+    struct {
+        const char* code;
+        char letter;
+    } morse_table[] = {
+        // Letters
+        {".-", 'A'}, {"-...", 'B'}, {"-.-.", 'C'}, {"-..", 'D'}, {"." , 'E'},
+        {"..-.", 'F'}, {"--.", 'G'}, {"....", 'H'}, {"..", 'I'}, {".---", 'J'},
+        {"-.-", 'K'}, {".-..", 'L'}, {"--", 'M'}, {"-.", 'N'}, {"---", 'O'},
+        {".--.", 'P'}, {"--.-", 'Q'}, {".-.", 'R'}, {"...", 'S'}, {"-", 'T'},
+        {"..-", 'U'}, {"...-", 'V'}, {".--", 'W'}, {"-..-", 'X'}, {"-.--", 'Y'}, {"--..", 'Z'},
+
+        // Numbers
+        {".----", '1'}, {"..---", '2'}, {"...--", '3'}, {"....-", '4'}, {".....", '5'},
+        {"-....", '6'}, {"--...", '7'}, {"---..", '8'}, {"----.", '9'}, {"-----", '0'},
+
+        // Punctuation
+        {".-.-.-", '.'}, {"--..--", ','}, {"---...", ':'}, {"..--..", '?'},
+        {".----.", '\''}, {"-....-", '-'}, {"-..-.", '/'}, {"-.--.", '('}, {"-.--.-", ')'},
+        {".-..-.", '\"'}, {"-...-", '='}, {".-.-.", '+'}, {"...-.-", '#'},
+        {"-.-", '^'}, {".-...", '~'}, {"........", '#'}, {"...-.", '_'},
+        {".--.-.", '@'}, {"-..-", '*'}
+    };
+
+    for (int i = 0; i < sizeof(morse_table)/sizeof(morse_table[0]); i++) {
+        if (strcmp(symbol, morse_table[i].code) == 0) {
+            return morse_table[i].letter;
+        }
+    }
+    return '?'; // Unknown symbol
+}
+
+
 void run_adc_conversion(void) {
      char msg[32];
 
@@ -93,7 +127,6 @@ void run_adc_conversion(void) {
     // Initialize LCD and display a startup message on the first line.
     lcd_init();
     lcd_clear();
-    lcd_print("System Running");
 
     // Configure the feedback LED as output and turn it off.
     gpio_set_mode(P_LED_R, Output);
@@ -175,7 +208,20 @@ void run_adc_conversion(void) {
                 lcd_print(msg);
 							
 							{
-							// transltion logic  ?
+								lcd_set_cursor(0, 1);
+								lcd_print("                "); 
+								lcd_set_cursor(0, 1);
+
+								if (current_symbol[0] != '\0') {
+										char translated = morse_to_char(current_symbol);
+										lcd_print("Char: ");
+										lcd_put_char(translated);
+								} else {
+										lcd_print("Char: ");
+								}
+
+								
+
 							}
 
                 // Append current_symbol to demod_buffer
@@ -197,16 +243,5 @@ void run_adc_conversion(void) {
         if (demod_index < sizeof(demod_buffer)) {
             demod_buffer[demod_index] = '\0';
         }
-
-        // Clear the LCD's second line by printing 16 spaces.
-        lcd_set_cursor(0, 1);
-        lcd_print("                "); // 16 spaces
-
-        // Set the cursor again and format the message.
-        lcd_set_cursor(0, 1);
-        sprintf(msg, "R:%d F:%d", raw_adc, (int)(filt + 0.5f));
-        lcd_print(msg);
-
-        // Delay for  ms before the next reading.
     }
 }
