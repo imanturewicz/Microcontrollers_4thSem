@@ -9,44 +9,22 @@
 
 #define VREF 3.3            // ADC reference voltage in volts
 
-// Use the red LED for feedback. If P_LED_R is not defined in platform.h, we define it here.
-// Adjust this pin if your board uses a different one.
 #ifndef P_LED_R
   #define P_LED_R P1_11
 #endif
 
-// For an active-low LED, setting the pin low turns it on.
 #define LED_ON  0
 #define LED_OFF 1
-
-// Smoothing factor for the IIR filter
 #define ALPHA 0.1f
-
 #define CLK 5
 
-// Global variable for filtered ADC value.
 static float filtered_adc = 0.0f;
 
-/**
- * @brief Updates the IIR filter with the latest ADC sample.
- *
- * Uses the formula:
- *     filtered_adc = ALPHA * raw_adc + (1 - ALPHA) * filtered_adc
- *
- * @param raw_adc The latest raw ADC sample.
- * @return The updated filtered ADC value.
- */
 static float update_iir_filter(int raw_adc) {
     filtered_adc = ALPHA * raw_adc + (1.0f - ALPHA) * filtered_adc;
     return filtered_adc;
 }
-/**
- * @brief A simple busy-loop delay function (in milliseconds).
- *
- * This function uses nested loops. You might need to adjust the inner loop count
- * based on your system clock.
- */
- 
+
 static void simple_delay_ms(unsigned int ms) {
     volatile unsigned int i, j;
     for (i = 0; i < ms; i++) {
@@ -56,55 +34,30 @@ static void simple_delay_ms(unsigned int ms) {
     }
 }
 
-/**
- * @brief Blinks the feedback LED for approximately 10 ms.
- */
-static void blink_feedback_led(void) {
-    gpio_set(P_LED_R, LED_ON);
-    simple_delay_ms(10);
-    gpio_set(P_LED_R, LED_OFF);
-}
-
 int Ignacy() {
-		long long sum = 0;
-		for(int i = 0; i < CLK; i++) {
-				sum += adc_read();
-				delay_ms(1);
-		}
-		return sum / CLK;
+    long long sum = 0;
+    for(int i = 0; i < CLK; i++) {
+        sum += adc_read();
+        delay_ms(1);
+    }
+    return sum / CLK;
 }
-
-/**
- * @brief Runs the ADC conversion routine.
- *
- * Initializes the ADC, LCD, and feedback LED.
- * Displays "System Running" on the first line of the LCD.
- * In the main loop, it reads the ADC value (from pin 15 / P_ADC),
- * blinks the LED to indicate a conversion event,
- * scales the ADC value to a voltage (using a 3.3V reference),
- * and displays both the raw ADC value and the voltage on the second line of the LCD.
- */
 
 char morse_to_char(const char* symbol) {
     struct {
         const char* code;
         char letter;
     } morse_table[] = {
-        // Letters
         {".-", 'A'}, {"-...", 'B'}, {"-.-.", 'C'}, {"-..", 'D'}, {"." , 'E'},
         {"..-.", 'F'}, {"--.", 'G'}, {"....", 'H'}, {"..", 'I'}, {".---", 'J'},
         {"-.-", 'K'}, {".-..", 'L'}, {"--", 'M'}, {"-.", 'N'}, {"---", 'O'},
         {".--.", 'P'}, {"--.-", 'Q'}, {".-.", 'R'}, {"...", 'S'}, {"-", 'T'},
         {"..-", 'U'}, {"...-", 'V'}, {".--", 'W'}, {"-..-", 'X'}, {"-.--", 'Y'}, {"--..", 'Z'},
-
-        // Numbers
         {".----", '1'}, {"..---", '2'}, {"...--", '3'}, {"....-", '4'}, {".....", '5'},
         {"-....", '6'}, {"--...", '7'}, {"---..", '8'}, {"----.", '9'}, {"-----", '0'},
-
-        // Punctuation
         {".-.-.-", '.'}, {"--..--", ','}, {"---...", ':'}, {"..--..", '?'},
         {".----.", '\''}, {"-....-", '-'}, {"-..-.", '/'}, {"-.--.", '('}, {"-.--.-", ')'},
-        {".-..-.", '\"'}, {"-...-", '='}, {".-.-.", '+'}, {"...-.-", '#'},
+        {".-..-.", '"'}, {"-...-", '='}, {".-.-.", '+'}, {"...-.-", '#'},
         {"-.-", '^'}, {".-...", '~'}, {"........", '#'}, {"...-.", '_'},
         {".--.-.", '@'}, {"-..-", '*'}
     };
@@ -114,37 +67,29 @@ char morse_to_char(const char* symbol) {
             return morse_table[i].letter;
         }
     }
-    return '?'; // Unknown symbol
+    return '?';
 }
 
-
 void run_adc_conversion(void) {
-		 char sentence[128] = "";
-		 int sentence_index = 0;
-     char msg[32];
+    char sentence[128] = "";
+    int sentence_index = 0;
+    char msg[32];
 
-    // Initialize ADC.
     adc_init();
-
-    // Initialize LCD and display a startup message on the first line.
     lcd_init();
     lcd_clear();
-
-    // Configure the feedback LED as output and turn it off.
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
 
-    // Initialize the filter with the first ADC reading.
     filtered_adc = (float)adc_read();
 
-    // Demodulation configuration
-    #define THRESHOLD       50
-    #define BASE						2000
-    #define DOT_DURATION     2
-    #define DASH_DURATION    6
-    #define DOT_GAP						1
-    #define SYMBOL_GAP       6
-    #define WORD_GAP         14
+    #define THRESHOLD 50
+    #define BASE 2000
+    #define DOT_DURATION 2
+    #define DASH_DURATION 6
+    #define DOT_GAP 1
+    #define SYMBOL_GAP 6
+    #define WORD_GAP 14
 
     int tone_duration = 0;
     int silence_duration = 0;
@@ -152,108 +97,93 @@ void run_adc_conversion(void) {
 
     char demod_buffer[128];
     int demod_index = 0;
-
-    char current_symbol[16];        // holds current group of . and - forming a Morse character/word
-    int current_symbol_index = 0;   // current position in that buffer
+    char current_symbol[16];
+    int current_symbol_index = 0;
 
     while (1) {
-        //delay_ms(100);
         int iggy = Ignacy();
-        // Read the raw ADC value (expected range: 0 to ADC_MASK, typically 0 to 4095)
         int raw_adc = adc_read();
-
-        // Update the filtered ADC value using our IIR filter.
         float filt = update_iir_filter(raw_adc);
+        delay_ms(10);
 
-        // Blink the feedback LED to indicate a conversion event.
-        blink_feedback_led();
+        int signal_active = (iggy > (BASE + THRESHOLD));
 
-        // Demodulation logic
-        int signal_active = (iggy > (BASE+THRESHOLD)/* || raw_adc < (BASE-THRESHOLD)*/);
-
-        // Measuring how long the tone lasts
         if (signal_active) {
-            tone_duration++;            //counts how long the tone is playing
-            silence_duration = 0;   //Reset silence time since active signal.
-
-            if (!is_tone) {
-                is_tone = 1;						//if we weren't in tone before, now we are
-            }
-
+            tone_duration++;
+            silence_duration = 0;
+            if (!is_tone) is_tone = 1;
         } else {
-            silence_duration++; 
+            silence_duration++;
 
             if (is_tone) {
-                if (tone_duration >= 2 && tone_duration < DASH_DURATION) {  
-                    if (current_symbol_index < sizeof(current_symbol) - 1) {
-                        current_symbol[current_symbol_index++] = '.';  //  add to symbol group
-                    }
-                } else if (tone_duration >= DASH_DURATION) { // dash detected
-                    if (current_symbol_index < sizeof(current_symbol) - 1) {
-                        current_symbol[current_symbol_index++] = '-';  // add to symbol group
-                    }
+                if (tone_duration >= 2 && tone_duration < DASH_DURATION) {
+                    if (current_symbol_index < sizeof(current_symbol) - 1)
+                        current_symbol[current_symbol_index++] = '.';
+                } else if (tone_duration >= DASH_DURATION) {
+                    if (current_symbol_index < sizeof(current_symbol) - 1)
+                        current_symbol[current_symbol_index++] = '-';
                 }
-                tone_duration = 0;   // clean reset after tone ends(dot or dash)
-                is_tone = 0;       // mark that we're in silence now
+                tone_duration = 0;
+                is_tone = 0;
             }
 
             if (silence_duration == SYMBOL_GAP || silence_duration == WORD_GAP) {
-                // Print current symbol group
-                current_symbol[current_symbol_index] = '\0';  // Null-terminate string
-						    
-						
-                lcd_set_cursor(0, 0);
-                lcd_print("                "); // Clear LCD line
+                current_symbol[current_symbol_index] = '\0';
 
+                lcd_set_cursor(0, 0);
+                lcd_print("                ");
                 lcd_set_cursor(0, 0);
                 sprintf(msg, "Word: %s", current_symbol);
                 lcd_print(msg);
-							
-							{
-							if (current_symbol[0] != '\0') {
-								char translated = morse_to_char(current_symbol);
 
-								if (sentence_index < sizeof(sentence) - 1) {
-								sentence[sentence_index++] = translated;
-								sentence[sentence_index] = '\0';
-								}
+                if (current_symbol[0] != '\0') {
+                    char translated = morse_to_char(current_symbol);
 
-								current_symbol_index = 0;  // reset symbol
-							} else if (silence_duration == WORD_GAP) {
-								// Insert space on word gap
-								if (sentence_index < sizeof(sentence) - 1) {
-								sentence[sentence_index++] = ' ';
-								sentence[sentence_index] = '\0';
-								}
-							}
-
-							// Always update LCD line 2
-							int len = strlen(sentence);
-							const char* display_ptr = sentence;
-							if (len > 16) {
-								display_ptr = sentence + (len - 16);
-							}
-							lcd_set_cursor(0, 1);
-							lcd_print((char *)display_ptr);
-
-						  }
-
-                // Append current_symbol to demod_buffer
-                int len = strlen(current_symbol);
-                if (demod_index + len < sizeof(demod_buffer) - 2) {   // makek sure there is room in demod_buffer[]
-                    for (int i = 0; i < len; i++) {
-                        demod_buffer[demod_index++] = current_symbol[i];
+                    if (translated == '?') {
+                        gpio_set(P_LED_R, LED_ON);
+                        lcd_set_cursor(0, 1);
+                        lcd_print("Invalid Symbol");
+                        current_symbol_index = 0;
+                        current_symbol[0] = '\0';
+                        while (1);  // halt until manual reset
+                    } else {
+                        if (sentence_index < sizeof(sentence) - 1) {
+                            sentence[sentence_index++] = translated;
+                            sentence[sentence_index] = '\0';
+                        }
                     }
-                    // Add space or slash for gap type
-                    demod_buffer[demod_index++] = (silence_duration == WORD_GAP) ? '/' : ' ';
-                    demod_buffer[demod_index] = '\0'; // Null terminate
+
+                    current_symbol_index = 0;
+                    current_symbol[0] = '\0';
+
+                } else if (silence_duration == WORD_GAP) {
+                    if (sentence_index < sizeof(sentence) - 1) {
+                        sentence[sentence_index++] = ' ';
+                        sentence[sentence_index] = '\0';
+                    }
                 }
 
-                current_symbol_index = 0;  //  Reset symbol buffer
+                int len = strlen(sentence);
+                const char* display_ptr = sentence;
+                if (len > 16) {
+                    display_ptr = sentence + (len - 16);
+                }
+                lcd_set_cursor(0, 1);
+                lcd_print(display_ptr);
+
+                int len_sym = strlen(current_symbol);
+                if (demod_index + len_sym < sizeof(demod_buffer) - 2) {
+                    for (int i = 0; i < len_sym; i++) {
+                        demod_buffer[demod_index++] = current_symbol[i];
+                    }
+                    demod_buffer[demod_index++] = (silence_duration == WORD_GAP) ? '/' : ' ';
+                    demod_buffer[demod_index] = '\0';
+                }
+
+                current_symbol_index = 0;
             }
         }
 
-        // Null-terminate the buffer for safety
         if (demod_index < sizeof(demod_buffer)) {
             demod_buffer[demod_index] = '\0';
         }
