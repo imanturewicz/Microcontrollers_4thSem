@@ -1,6 +1,7 @@
 #include <platform.h>
 #include <stdint.h>
 #include "delay.h"
+//#include "core_cm4.h" // Or core_cmInstr.h depending on setup
 
 void delay_ms(unsigned int ms) {
 	unsigned int max_step = 1000 * (UINT32_MAX / CLK_FREQ);
@@ -35,4 +36,27 @@ done
 	BX lr
 }
 
+volatile uint32_t tick_count = 0;
+
+void SysTick_Handler(void) {
+    tick_count++;
+}
+
+void delay_ms_low_power(uint32_t ms) {
+    tick_count = 0;
+    SysTick_Config(SystemCoreClock / 1000); // 1ms tick
+    while (tick_count < ms) {
+        __WFI(); 
+    }
+    SysTick->CTRL = 0; // Disable SysTick after use
+}
+
+void delay_100us_low_power(uint32_t us100) {
+    tick_count = 0;
+    SysTick_Config(SystemCoreClock / 10000); // 100us tick
+    while (tick_count < us100) {
+        __WFI(); 
+    }
+    SysTick->CTRL = 0; // Disable SysTick after use
+}
 // *******************************ARM University Program Copyright © ARM Ltd 2014*************************************   

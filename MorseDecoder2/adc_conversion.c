@@ -18,12 +18,12 @@
 #define ALPHA 0.1f
 #define CLK 5
 
-static float filtered_adc = 0.0f;
+// static float filtered_adc = 0.0f;
 
-static float update_iir_filter(int raw_adc) {
-    filtered_adc = ALPHA * raw_adc + (1.0f - ALPHA) * filtered_adc;
-    return filtered_adc;
-}
+// static float update_iir_filter(int raw_adc) {
+//     filtered_adc = ALPHA * raw_adc + (1.0f - ALPHA) * filtered_adc;
+//     return filtered_adc;
+//}
 
 static void simple_delay_ms(unsigned int ms) {
     volatile unsigned int i, j;
@@ -34,7 +34,7 @@ static void simple_delay_ms(unsigned int ms) {
     }
 }
 
-int Ignacy() {
+int calc_movingAverage() {
     long long sum = 0;
     for(int i = 0; i < CLK; i++) {
         sum += adc_read();
@@ -81,13 +81,13 @@ void run_adc_conversion(void) {
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
 
-    filtered_adc = (float)adc_read();
+    //filtered_adc = (float)adc_read();
 
     #define THRESHOLD 50
     #define BASE 2000
     #define DOT_DURATION 2
     #define DASH_DURATION 6
-    #define DOT_GAP 1
+    //#define DOT_GAP 1
     #define SYMBOL_GAP 6
     #define WORD_GAP 14
 
@@ -101,12 +101,12 @@ void run_adc_conversion(void) {
     int current_symbol_index = 0;
 
     while (1) {
-        int iggy = Ignacy();
-        int raw_adc = adc_read();
-        float filt = update_iir_filter(raw_adc);
+        int averagedSample = calc_movingAverage();
+        //int raw_adc = adc_read();
+        //float filt = update_iir_filter(raw_adc);
         delay_ms(10);
 
-        int signal_active = (iggy > (BASE + THRESHOLD));
+        int signal_active = (averagedSample > (BASE + THRESHOLD));
 
         if (signal_active) {
             tone_duration++;
@@ -116,7 +116,7 @@ void run_adc_conversion(void) {
             silence_duration++;
 
             if (is_tone) {
-                if (tone_duration >= 2 && tone_duration < DASH_DURATION) {
+                if (tone_duration >= DOT_DURATION && tone_duration < DASH_DURATION) {
                     if (current_symbol_index < sizeof(current_symbol) - 1)
                         current_symbol[current_symbol_index++] = '.';
                 } else if (tone_duration >= DASH_DURATION) {
