@@ -38,7 +38,7 @@ int calc_movingAverage() {
     long long sum = 0;
     for(int i = 0; i < CLK; i++) {
         sum += adc_read();
-        delay_ms(1);
+				delay_ms_low_power(1);
     }
     return sum / CLK;
 }
@@ -57,7 +57,7 @@ char morse_to_char(const char* symbol) {
         {"-....", '6'}, {"--...", '7'}, {"---..", '8'}, {"----.", '9'}, {"-----", '0'},
         {".-.-.-", '.'}, {"--..--", ','}, {"---...", ':'}, {"..--..", '?'},
         {".----.", '\''}, {"-....-", '-'}, {"-..-.", '/'}, {"-.--.", '('}, {"-.--.-", ')'},
-        {".-..-.", '"'}, {"-...-", '='}, {".-.-.", '+'}, {"...-.-", '#'},
+        {".-..-.", '"'}, {"-...-", '='}, {".-.-.", '+'}, {"...-.-", '!'},
         {"-.-", '^'}, {".-...", '~'}, {"........", '#'}, {"...-.", '_'},
         {".--.-.", '@'}, {"-..-", '*'}
     };
@@ -67,7 +67,7 @@ char morse_to_char(const char* symbol) {
             return morse_table[i].letter;
         }
     }
-    return '?';
+    return '#';
 }
 
 void run_adc_conversion(void) {
@@ -104,7 +104,7 @@ void run_adc_conversion(void) {
         int averagedSample = calc_movingAverage();
         //int raw_adc = adc_read();
         //float filt = update_iir_filter(raw_adc);
-        delay_ms(10);
+				delay_ms_low_power(10);
 
         int signal_active = (averagedSample > (BASE + THRESHOLD));
 
@@ -139,18 +139,24 @@ void run_adc_conversion(void) {
                 if (current_symbol[0] != '\0') {
                     char translated = morse_to_char(current_symbol);
 
-                    if (translated == '?') {
+                    if (translated == '#') {
                         gpio_set(P_LED_R, LED_ON);
-                        lcd_set_cursor(0, 1);
+												translated = '#';
+												
+                        /*lcd_set_cursor(0, 1);
                         lcd_print("Invalid Symbol");
                         current_symbol_index = 0;
                         current_symbol[0] = '\0';
-                        while (1);  // halt until manual reset
-                    } else {
+                        while (1);  // halt until manual reset*/
+                    } /*else {
                         if (sentence_index < sizeof(sentence) - 1) {
                             sentence[sentence_index++] = translated;
                             sentence[sentence_index] = '\0';
                         }
+                    }*/
+										if (sentence_index < sizeof(sentence) - 1) {
+                            sentence[sentence_index++] = translated;
+                            sentence[sentence_index] = '\0';
                     }
 
                     current_symbol_index = 0;
