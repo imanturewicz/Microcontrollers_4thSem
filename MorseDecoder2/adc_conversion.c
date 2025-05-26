@@ -16,7 +16,14 @@
 #define LED_ON  0
 #define LED_OFF 1
 #define ALPHA 0.1f
-#define CLK 5
+#define CLK 14
+#define THRESHOLD 50
+    #define BASE 2000
+    #define DOT_DURATION 2
+    #define DASH_DURATION 6
+    //#define DOT_GAP 1
+    #define SYMBOL_GAP 6
+    #define WORD_GAP 14
 
 // static float filtered_adc = 0.0f;
 
@@ -25,20 +32,12 @@
 //     return filtered_adc;
 //}
 
-static void simple_delay_ms(unsigned int ms) {
-    volatile unsigned int i, j;
-    for (i = 0; i < ms; i++) {
-        for (j = 0; j < 10000; j++) {
-            __asm("NOP");
-        }
-    }
-}
 
 int calc_movingAverage() {
     long long sum = 0;
     for(int i = 0; i < CLK; i++) {
         sum += adc_read();
-				delay_ms_low_power(1);
+				delay_100us_low_power(1);
     }
     return sum / CLK;
 }
@@ -70,7 +69,70 @@ char morse_to_char(const char* symbol) {
     return '#';
 }
 
+int wait_for_start_signal(void) {
+    int tone_duration = 0;
+    int silence_duration = 0;
+    int is_tone = 0;
+
+    char current_symbol[16];
+    int current_symbol_index = 0;
+
+    lcd_clear();
+    lcd_set_cursor(0, 0);
+    lcd_print("Waiting for 'C'");
+
+    while (1) {
+        int averagedSample = calc_movingAverage();
+        int signal_active = (averagedSample > (BASE + THRESHOLD));
+
+        if (signal_active) {
+            tone_duration++;
+            silence_duration = 0;
+            if (!is_tone) is_tone = 1;
+        } else {
+            silence_duration++;
+
+            if (is_tone) {
+                if (tone_duration >= DOT_DURATION && tone_duration < DASH_DURATION) {
+                    if (current_symbol_index < sizeof(current_symbol) - 1)
+                        current_symbol[current_symbol_index++] = '.';
+                } else if (tone_duration >= DASH_DURATION) {
+                    if (current_symbol_index < sizeof(current_symbol) - 1)
+                        current_symbol[current_symbol_index++] = '-';
+                }
+                tone_duration = 0;
+                is_tone = 0;
+            }
+
+            if (silence_duration == SYMBOL_GAP || silence_duration == WORD_GAP) {
+                current_symbol[current_symbol_index] = '\0';
+
+                lcd_set_cursor(0, 1);
+                lcd_print("Recv: ");
+                lcd_print(current_symbol);
+
+                if (strcmp(current_symbol, "-.-.") == 0) { // Morse for 'C'
+                    lcd_clear();
+                    lcd_set_cursor(0, 0);
+                    //lcd_print("Signal Start");
+                    //delay_ms(1000);  // Small delay before starting
+                    return 1;
+                }
+
+                // Reset for next symbol
+                current_symbol_index = 0;
+                current_symbol[0] = '\0';
+            }
+        }
+				delay_ms_low_power(14);
+    }
+
+    return 0;
+}
+
+
 void run_adc_conversion(void) {
+		
     char sentence[128] = "";
     int sentence_index = 0;
     char msg[32];
@@ -80,16 +142,16 @@ void run_adc_conversion(void) {
     lcd_clear();
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
+	
+		/*if (!wait_for_start_signal()) {
+        lcd_set_cursor(0, 0);
+        lcd_print("Start Failed!");
+        return;
+    }*/
 
     //filtered_adc = (float)adc_read();
 
-    #define THRESHOLD 50
-    #define BASE 2000
-    #define DOT_DURATION 2
-    #define DASH_DURATION 6
-    //#define DOT_GAP 1
-    #define SYMBOL_GAP 6
-    #define WORD_GAP 14
+    
 
     int tone_duration = 0;
     int silence_duration = 0;
@@ -104,7 +166,8 @@ void run_adc_conversion(void) {
         int averagedSample = calc_movingAverage();
         //int raw_adc = adc_read();
         //float filt = update_iir_filter(raw_adc);
-				delay_ms_low_power(10);
+			
+				//delay_ms_low_power(10);
 
         int signal_active = (averagedSample > (BASE + THRESHOLD));
 
@@ -141,7 +204,6 @@ void run_adc_conversion(void) {
 
                     if (translated == '#') {
                         gpio_set(P_LED_R, LED_ON);
-												translated = '#';
 												
                         /*lcd_set_cursor(0, 1);
                         lcd_print("Invalid Symbol");
@@ -188,10 +250,14 @@ void run_adc_conversion(void) {
 
                 current_symbol_index = 0;
             }
-        }
+						else if (silence_duration >= 2*WORD_GAP) {
+									//break;
+						}
+        } 
 
         if (demod_index < sizeof(demod_buffer)) {
             demod_buffer[demod_index] = '\0';
         }
+				delay_ms_low_power(20);
     }
 }
