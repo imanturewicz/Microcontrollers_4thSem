@@ -10,7 +10,7 @@
       <TargetName>Target_1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_v.5.06</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -498,6 +498,16 @@
               <FileName>leds.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\drivers\leds.h</FilePath>
+            </File>
+            <File>
+              <FileName>switches.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\switches.c</FilePath>
+            </File>
+            <File>
+              <FileName>switches.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\switches.h</FilePath>
             </File>
           </Files>
         </Group>

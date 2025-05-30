@@ -9,6 +9,7 @@
 ".\objects\delay.o"
 ".\objects\lcd.o"
 ".\objects\leds.o"
+".\objects\switches.o"
 ".\objects\adc_conversion.o"
 ".\objects\main.o"
 ".\objects\basicmathfunctions.o"

@@ -28,7 +28,14 @@ Section Cross References
     uart.o(i.uart_set_baudrate) refers to uart.o(i.FR_TABLE_Construct) for FR_TABLE_Construct
     uart.o(i.uart_set_baudrate) refers to uart.o(.bss) for .bss
     uart.o(i.uart_set_rx_callback) refers to uart.o(.data) for .data
+    delay.o(i.SysTick_Handler) refers to delay.o(.data) for .data
+    delay.o(i.delay_100us_low_power) refers to delay.o(i.SysTick_Config) for SysTick_Config
+    delay.o(i.delay_100us_low_power) refers to delay.o(.data) for .data
+    delay.o(i.delay_100us_low_power) refers to system_lpc407x_8x_177x_8x.o(.data) for SystemCoreClock
     delay.o(i.delay_ms) refers to delay.o(.emb_text) for delay_cycles
+    delay.o(i.delay_ms_low_power) refers to delay.o(i.SysTick_Config) for SysTick_Config
+    delay.o(i.delay_ms_low_power) refers to delay.o(.data) for .data
+    delay.o(i.delay_ms_low_power) refers to system_lpc407x_8x_177x_8x.o(.data) for SystemCoreClock
     delay.o(i.delay_us) refers to delay.o(.emb_text) for delay_cycles
     lcd.o(i.lcd_clear) refers to lcd.o(i.lcd_write_cmd) for lcd_write_cmd
     lcd.o(i.lcd_clear) refers to delay.o(i.delay_us) for delay_us
@@ -65,11 +72,11 @@ Section Cross References
     leds.o(i.leds_init) refers to gpio.o(i.gpio_set_mode) for gpio_set_mode
     leds.o(i.leds_init) refers to leds.o(i.leds_set) for leds_set
     leds.o(i.leds_set) refers to gpio.o(i.gpio_set) for gpio_set
-    adc_conversion.o(i.Ignacy) refers to adc.o(i.adc_read) for adc_read
-    adc_conversion.o(i.Ignacy) refers to delay.o(i.delay_ms) for delay_ms
-    adc_conversion.o(i.Ignacy) refers to llsdiv.o(.text) for __aeabi_ldivmod
-    adc_conversion.o(i.blink_feedback_led) refers to gpio.o(i.gpio_set) for gpio_set
-    adc_conversion.o(i.blink_feedback_led) refers to adc_conversion.o(i.simple_delay_ms) for simple_delay_ms
+    switches.o(i.switch_get) refers to gpio.o(i.gpio_get) for gpio_get
+    switches.o(i.switches_init) refers to gpio.o(i.gpio_set_mode) for gpio_set_mode
+    adc_conversion.o(i.calc_movingAverage) refers to adc.o(i.adc_read) for adc_read
+    adc_conversion.o(i.calc_movingAverage) refers to delay.o(i.delay_100us_low_power) for delay_100us_low_power
+    adc_conversion.o(i.calc_movingAverage) refers to llsdiv.o(.text) for __aeabi_ldivmod
     adc_conversion.o(i.morse_to_char) refers to rt_memcpy_w.o(.text) for __aeabi_memcpy4
     adc_conversion.o(i.morse_to_char) refers to strcmpv7m.o(.text) for strcmp
     adc_conversion.o(i.morse_to_char) refers to adc_conversion.o(.constdata) for .constdata
@@ -79,20 +86,25 @@ Section Cross References
     adc_conversion.o(i.run_adc_conversion) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
     adc_conversion.o(i.run_adc_conversion) refers to adc.o(i.adc_init) for adc_init
     adc_conversion.o(i.run_adc_conversion) refers to lcd.o(i.lcd_init) for lcd_init
+    adc_conversion.o(i.run_adc_conversion) refers to switches.o(i.switches_init) for switches_init
     adc_conversion.o(i.run_adc_conversion) refers to lcd.o(i.lcd_clear) for lcd_clear
     adc_conversion.o(i.run_adc_conversion) refers to gpio.o(i.gpio_set_mode) for gpio_set_mode
     adc_conversion.o(i.run_adc_conversion) refers to gpio.o(i.gpio_set) for gpio_set
-    adc_conversion.o(i.run_adc_conversion) refers to adc.o(i.adc_read) for adc_read
-    adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(i.Ignacy) for Ignacy
-    adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(i.update_iir_filter) for update_iir_filter
-    adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(i.blink_feedback_led) for blink_feedback_led
+    adc_conversion.o(i.run_adc_conversion) refers to switches.o(i.switch_get) for switch_get
+    adc_conversion.o(i.run_adc_conversion) refers to delay.o(i.delay_ms) for delay_ms
+    adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(i.calc_movingAverage) for calc_movingAverage
     adc_conversion.o(i.run_adc_conversion) refers to lcd.o(i.lcd_set_cursor) for lcd_set_cursor
     adc_conversion.o(i.run_adc_conversion) refers to lcd.o(i.lcd_print) for lcd_print
     adc_conversion.o(i.run_adc_conversion) refers to noretval__2sprintf.o(.text) for __2sprintf
     adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(i.morse_to_char) for morse_to_char
     adc_conversion.o(i.run_adc_conversion) refers to strlen.o(.text) for strlen
-    adc_conversion.o(i.run_adc_conversion) refers to adc_conversion.o(.data) for .data
-    adc_conversion.o(i.update_iir_filter) refers to adc_conversion.o(.data) for .data
+    adc_conversion.o(i.run_adc_conversion) refers to delay.o(i.delay_ms_low_power) for delay_ms_low_power
+    adc_conversion.o(i.wait_for_start_signal) refers to lcd.o(i.lcd_clear) for lcd_clear
+    adc_conversion.o(i.wait_for_start_signal) refers to lcd.o(i.lcd_set_cursor) for lcd_set_cursor
+    adc_conversion.o(i.wait_for_start_signal) refers to lcd.o(i.lcd_print) for lcd_print
+    adc_conversion.o(i.wait_for_start_signal) refers to adc_conversion.o(i.calc_movingAverage) for calc_movingAverage
+    adc_conversion.o(i.wait_for_start_signal) refers to strcmpv7m.o(.text) for strcmp
+    adc_conversion.o(i.wait_for_start_signal) refers to delay.o(i.delay_ms_low_power) for delay_ms_low_power
     adc_conversion.o(.constdata) refers to adc_conversion.o(.conststring) for .conststring
     main.o(i.main) refers to adc_conversion.o(i.run_adc_conversion) for run_adc_conversion
     basicmathfunctions.o(i.arm_abs_f64) refers to fabs.o(i.__hardfp_fabs) for __hardfp_fabs
@@ -1153,6 +1165,7 @@ Section Cross References
     startup_lpc407x_8x_177x_8x.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_lpc407x_8x_177x_8x.o(RESET) refers to startup_lpc407x_8x_177x_8x.o(STACK) for __initial_sp
     startup_lpc407x_8x_177x_8x.o(RESET) refers to startup_lpc407x_8x_177x_8x.o(.text) for Reset_Handler
+    startup_lpc407x_8x_177x_8x.o(RESET) refers to delay.o(i.SysTick_Handler) for SysTick_Handler
     startup_lpc407x_8x_177x_8x.o(RESET) refers to timer.o(i.TIMER0_IRQHandler) for TIMER0_IRQHandler
     startup_lpc407x_8x_177x_8x.o(RESET) refers to uart.o(i.UART0_IRQHandler) for UART0_IRQHandler
     startup_lpc407x_8x_177x_8x.o(RESET) refers to gpio.o(i.GPIO_IRQHandler) for GPIO_IRQHandler
@@ -1676,7 +1689,6 @@ Removing Unused input sections from the image.
     Removing gpio.o(.rev16_text), (4 bytes).
     Removing gpio.o(.revsh_text), (4 bytes).
     Removing gpio.o(.rrx_text), (6 bytes).
-    Removing gpio.o(i.gpio_get), (24 bytes).
     Removing gpio.o(i.gpio_get_range), (28 bytes).
     Removing gpio.o(i.gpio_set_callback), (48 bytes).
     Removing gpio.o(i.gpio_set_range), (32 bytes).
@@ -1723,9 +1735,13 @@ Removing Unused input sections from the image.
     Removing leds.o(.rrx_text), (6 bytes).
     Removing leds.o(i.leds_init), (48 bytes).
     Removing leds.o(i.leds_set), (64 bytes).
+    Removing switches.o(.rev16_text), (4 bytes).
+    Removing switches.o(.revsh_text), (4 bytes).
+    Removing switches.o(.rrx_text), (6 bytes).
     Removing adc_conversion.o(.rev16_text), (4 bytes).
     Removing adc_conversion.o(.revsh_text), (4 bytes).
     Removing adc_conversion.o(.rrx_text), (6 bytes).
+    Removing adc_conversion.o(i.wait_for_start_signal), (220 bytes).
     Removing basicmathfunctions.o(.rev16_text), (4 bytes).
     Removing basicmathfunctions.o(.revsh_text), (4 bytes).
     Removing basicmathfunctions.o(.rrx_text), (6 bytes).
@@ -2666,7 +2682,7 @@ Removing Unused input sections from the image.
     Removing system_lpc407x_8x_177x_8x.o(.revsh_text), (4 bytes).
     Removing system_lpc407x_8x_177x_8x.o(.rrx_text), (6 bytes).
 
-1007 unused section(s) (total 1027518 bytes) removed from the image.
+1010 unused section(s) (total 1027728 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2677,32 +2693,32 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      228  startup_lpc407x_8x_177x_8x.o(RESET)
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_ldiv0.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_ldiv0_sigfpe.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_errno_addr_intlibspace.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_errno_addr.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_errno_addr.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_errno_addr_intlibspace.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
@@ -2710,52 +2726,52 @@ Image Symbol Table
     ../clib/fenv.c                           0x00000000   Number         0  _rserrno.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
-    ../clib/longlong.s                       0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  llsdiv.o ABSOLUTE
-    ../clib/longlong.s                       0x00000000   Number         0  lludivv7m.o ABSOLUTE
+    ../clib/longlong.s                       0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/longlong.s                       0x00000000   Number         0  lludivv7m.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  strcmpv7m.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __2sprintf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_str.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  noretval__2sprintf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  noretval__2sprintf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __2sprintf.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
@@ -2795,8 +2811,8 @@ Image Symbol Table
     ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
     ../mathlib/fpclassifyf.c                 0x00000000   Number         0  fpclassifyf.o ABSOLUTE
     ../mathlib/funder.c                      0x00000000   Number         0  funder.o ABSOLUTE
-    ../mathlib/log.c                         0x00000000   Number         0  log.o ABSOLUTE
     ../mathlib/log.c                         0x00000000   Number         0  log_x.o ABSOLUTE
+    ../mathlib/log.c                         0x00000000   Number         0  log.o ABSOLUTE
     ../mathlib/logf.c                        0x00000000   Number         0  logf_x.o ABSOLUTE
     ../mathlib/logf.c                        0x00000000   Number         0  logf.o ABSOLUTE
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
@@ -2805,72 +2821,72 @@ Image Symbol Table
     ../mathlib/qnan.c                        0x00000000   Number         0  qnan.o ABSOLUTE
     ../mathlib/rred.c                        0x00000000   Number         0  rred.o ABSOLUTE
     ../mathlib/rredf.c                       0x00000000   Number         0  rredf.o ABSOLUTE
-    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
     ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
-    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
+    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_x.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf.o ABSOLUTE
     ../mathlib/tanhf.c                       0x00000000   Number         0  tanhf_x.o ABSOLUTE
     ../mathlib/tanhf.c                       0x00000000   Number         0  tanhf.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BasicMathFunctions/BasicMathFunctions.c 0x00000000   Number         0  basicmathfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BasicMathFunctions/BasicMathFunctionsF16.c 0x00000000   Number         0  basicmathfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BayesFunctions/BayesFunctions.c 0x00000000   Number         0  bayesfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BayesFunctions/BayesFunctionsF16.c 0x00000000   Number         0  bayesfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/CommonTables.c 0x00000000   Number         0  commontables.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/CommonTablesF16.c 0x00000000   Number         0  commontablesf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ComplexMathFunctions/ComplexMathFunctions.c 0x00000000   Number         0  complexmathfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ComplexMathFunctions/ComplexMathFunctionsF16.c 0x00000000   Number         0  complexmathfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ControllerFunctions/ControllerFunctions.c 0x00000000   Number         0  controllerfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/DistanceFunctions/DistanceFunctions.c 0x00000000   Number         0  distancefunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/DistanceFunctions/DistanceFunctionsF16.c 0x00000000   Number         0  distancefunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FastMathFunctions/FastMathFunctions.c 0x00000000   Number         0  fastmathfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FastMathFunctions/FastMathFunctionsF16.c 0x00000000   Number         0  fastmathfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FilteringFunctions/FilteringFunctions.c 0x00000000   Number         0  filteringfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FilteringFunctions/FilteringFunctionsF16.c 0x00000000   Number         0  filteringfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/InterpolationFunctions/InterpolationFunctions.c 0x00000000   Number         0  interpolationfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/InterpolationFunctions/InterpolationFunctionsF16.c 0x00000000   Number         0  interpolationfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/MatrixFunctions/MatrixFunctions.c 0x00000000   Number         0  matrixfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/MatrixFunctions/MatrixFunctionsF16.c 0x00000000   Number         0  matrixfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/QuaternionMathFunctions/QuaternionMathFunctions.c 0x00000000   Number         0  quaternionmathfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SVMFunctions/SVMFunctions.c 0x00000000   Number         0  svmfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SVMFunctions/SVMFunctionsF16.c 0x00000000   Number         0  svmfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/StatisticsFunctions/StatisticsFunctions.c 0x00000000   Number         0  statisticsfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/StatisticsFunctions/StatisticsFunctionsF16.c 0x00000000   Number         0  statisticsfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SupportFunctions/SupportFunctions.c 0x00000000   Number         0  supportfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SupportFunctions/SupportFunctionsF16.c 0x00000000   Number         0  supportfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/TransformFunctions/TransformFunctions.c 0x00000000   Number         0  transformfunctions.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/TransformFunctions/TransformFunctionsF16.c 0x00000000   Number         0  transformfunctionsf16.o ABSOLUTE
-    C:/Users/Bradley/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/WindowFunctions/WindowFunctions.c 0x00000000   Number         0  windowfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BasicMathFunctions\BasicMathFunctions.c 0x00000000   Number         0  basicmathfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BasicMathFunctions\BasicMathFunctionsF16.c 0x00000000   Number         0  basicmathfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BayesFunctions\BayesFunctions.c 0x00000000   Number         0  bayesfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BayesFunctions\BayesFunctionsF16.c 0x00000000   Number         0  bayesfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\CommonTables\CommonTables.c 0x00000000   Number         0  commontables.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\CommonTables\CommonTablesF16.c 0x00000000   Number         0  commontablesf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ComplexMathFunctions\ComplexMathFunctions.c 0x00000000   Number         0  complexmathfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ComplexMathFunctions\ComplexMathFunctionsF16.c 0x00000000   Number         0  complexmathfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ControllerFunctions\ControllerFunctions.c 0x00000000   Number         0  controllerfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\DistanceFunctions\DistanceFunctions.c 0x00000000   Number         0  distancefunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\DistanceFunctions\DistanceFunctionsF16.c 0x00000000   Number         0  distancefunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FastMathFunctions\FastMathFunctions.c 0x00000000   Number         0  fastmathfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FastMathFunctions\FastMathFunctionsF16.c 0x00000000   Number         0  fastmathfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FilteringFunctions\FilteringFunctions.c 0x00000000   Number         0  filteringfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FilteringFunctions\FilteringFunctionsF16.c 0x00000000   Number         0  filteringfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\InterpolationFunctions\InterpolationFunctions.c 0x00000000   Number         0  interpolationfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\InterpolationFunctions\InterpolationFunctionsF16.c 0x00000000   Number         0  interpolationfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\MatrixFunctions\MatrixFunctions.c 0x00000000   Number         0  matrixfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\MatrixFunctions\MatrixFunctionsF16.c 0x00000000   Number         0  matrixfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\QuaternionMathFunctions\QuaternionMathFunctions.c 0x00000000   Number         0  quaternionmathfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SVMFunctions\SVMFunctions.c 0x00000000   Number         0  svmfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SVMFunctions\SVMFunctionsF16.c 0x00000000   Number         0  svmfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\StatisticsFunctions\StatisticsFunctions.c 0x00000000   Number         0  statisticsfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\StatisticsFunctions\StatisticsFunctionsF16.c 0x00000000   Number         0  statisticsfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SupportFunctions\SupportFunctions.c 0x00000000   Number         0  supportfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SupportFunctions\SupportFunctionsF16.c 0x00000000   Number         0  supportfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\TransformFunctions\TransformFunctions.c 0x00000000   Number         0  transformfunctions.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\TransformFunctions\TransformFunctionsF16.c 0x00000000   Number         0  transformfunctionsf16.o ABSOLUTE
-    C:\Users\Bradley\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\WindowFunctions\WindowFunctions.c 0x00000000   Number         0  windowfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BasicMathFunctions/BasicMathFunctions.c 0x00000000   Number         0  basicmathfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BasicMathFunctions/BasicMathFunctionsF16.c 0x00000000   Number         0  basicmathfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BayesFunctions/BayesFunctions.c 0x00000000   Number         0  bayesfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/BayesFunctions/BayesFunctionsF16.c 0x00000000   Number         0  bayesfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/CommonTables.c 0x00000000   Number         0  commontables.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/CommonTables/CommonTablesF16.c 0x00000000   Number         0  commontablesf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ComplexMathFunctions/ComplexMathFunctions.c 0x00000000   Number         0  complexmathfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ComplexMathFunctions/ComplexMathFunctionsF16.c 0x00000000   Number         0  complexmathfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/ControllerFunctions/ControllerFunctions.c 0x00000000   Number         0  controllerfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/DistanceFunctions/DistanceFunctions.c 0x00000000   Number         0  distancefunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/DistanceFunctions/DistanceFunctionsF16.c 0x00000000   Number         0  distancefunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FastMathFunctions/FastMathFunctions.c 0x00000000   Number         0  fastmathfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FastMathFunctions/FastMathFunctionsF16.c 0x00000000   Number         0  fastmathfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FilteringFunctions/FilteringFunctions.c 0x00000000   Number         0  filteringfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/FilteringFunctions/FilteringFunctionsF16.c 0x00000000   Number         0  filteringfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/InterpolationFunctions/InterpolationFunctions.c 0x00000000   Number         0  interpolationfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/InterpolationFunctions/InterpolationFunctionsF16.c 0x00000000   Number         0  interpolationfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/MatrixFunctions/MatrixFunctions.c 0x00000000   Number         0  matrixfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/MatrixFunctions/MatrixFunctionsF16.c 0x00000000   Number         0  matrixfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/QuaternionMathFunctions/QuaternionMathFunctions.c 0x00000000   Number         0  quaternionmathfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SVMFunctions/SVMFunctions.c 0x00000000   Number         0  svmfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SVMFunctions/SVMFunctionsF16.c 0x00000000   Number         0  svmfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/StatisticsFunctions/StatisticsFunctions.c 0x00000000   Number         0  statisticsfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/StatisticsFunctions/StatisticsFunctionsF16.c 0x00000000   Number         0  statisticsfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SupportFunctions/SupportFunctions.c 0x00000000   Number         0  supportfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/SupportFunctions/SupportFunctionsF16.c 0x00000000   Number         0  supportfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/TransformFunctions/TransformFunctions.c 0x00000000   Number         0  transformfunctions.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/TransformFunctions/TransformFunctionsF16.c 0x00000000   Number         0  transformfunctionsf16.o ABSOLUTE
+    C:/Users/bradt/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.16.2/Source/WindowFunctions/WindowFunctions.c 0x00000000   Number         0  windowfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BasicMathFunctions\BasicMathFunctions.c 0x00000000   Number         0  basicmathfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BasicMathFunctions\BasicMathFunctionsF16.c 0x00000000   Number         0  basicmathfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BayesFunctions\BayesFunctions.c 0x00000000   Number         0  bayesfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\BayesFunctions\BayesFunctionsF16.c 0x00000000   Number         0  bayesfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\CommonTables\CommonTables.c 0x00000000   Number         0  commontables.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\CommonTables\CommonTablesF16.c 0x00000000   Number         0  commontablesf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ComplexMathFunctions\ComplexMathFunctions.c 0x00000000   Number         0  complexmathfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ComplexMathFunctions\ComplexMathFunctionsF16.c 0x00000000   Number         0  complexmathfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\ControllerFunctions\ControllerFunctions.c 0x00000000   Number         0  controllerfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\DistanceFunctions\DistanceFunctions.c 0x00000000   Number         0  distancefunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\DistanceFunctions\DistanceFunctionsF16.c 0x00000000   Number         0  distancefunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FastMathFunctions\FastMathFunctions.c 0x00000000   Number         0  fastmathfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FastMathFunctions\FastMathFunctionsF16.c 0x00000000   Number         0  fastmathfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FilteringFunctions\FilteringFunctions.c 0x00000000   Number         0  filteringfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\FilteringFunctions\FilteringFunctionsF16.c 0x00000000   Number         0  filteringfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\InterpolationFunctions\InterpolationFunctions.c 0x00000000   Number         0  interpolationfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\InterpolationFunctions\InterpolationFunctionsF16.c 0x00000000   Number         0  interpolationfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\MatrixFunctions\MatrixFunctions.c 0x00000000   Number         0  matrixfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\MatrixFunctions\MatrixFunctionsF16.c 0x00000000   Number         0  matrixfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\QuaternionMathFunctions\QuaternionMathFunctions.c 0x00000000   Number         0  quaternionmathfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SVMFunctions\SVMFunctions.c 0x00000000   Number         0  svmfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SVMFunctions\SVMFunctionsF16.c 0x00000000   Number         0  svmfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\StatisticsFunctions\StatisticsFunctions.c 0x00000000   Number         0  statisticsfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\StatisticsFunctions\StatisticsFunctionsF16.c 0x00000000   Number         0  statisticsfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SupportFunctions\SupportFunctions.c 0x00000000   Number         0  supportfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\SupportFunctions\SupportFunctionsF16.c 0x00000000   Number         0  supportfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\TransformFunctions\TransformFunctions.c 0x00000000   Number         0  transformfunctions.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\TransformFunctions\TransformFunctionsF16.c 0x00000000   Number         0  transformfunctionsf16.o ABSOLUTE
+    C:\Users\bradt\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.16.2\Source\WindowFunctions\WindowFunctions.c 0x00000000   Number         0  windowfunctions.o ABSOLUTE
     RTE/Device/LPC4088FET208/startup_LPC407x_8x_177x_8x.s 0x00000000   Number         0  startup_lpc407x_8x_177x_8x.o ABSOLUTE
     RTE/Device/LPC4088FET208/system_LPC407x_8x_177x_8x.c 0x00000000   Number         0  system_lpc407x_8x_177x_8x.o ABSOLUTE
     RTE\Device\LPC4088FET208\system_LPC407x_8x_177x_8x.c 0x00000000   Number         0  system_lpc407x_8x_177x_8x.o ABSOLUTE
@@ -2898,6 +2914,8 @@ Image Symbol Table
     drivers\timer.c                          0x00000000   Number         0  timer.o ABSOLUTE
     drivers\uart.c                           0x00000000   Number         0  uart.o ABSOLUTE
     main.c                                   0x00000000   Number         0  main.o ABSOLUTE
+    switches.c                               0x00000000   Number         0  switches.o ABSOLUTE
+    switches.c                               0x00000000   Number         0  switches.o ABSOLUTE
     !!!main                                  0x000000e4   Section        8  __main.o(!!!main)
     !!!scatter                               0x000000ec   Section       52  __scatter.o(!!!scatter)
     !!handler_copy                           0x00000120   Section       26  __scatter_copy.o(!!handler_copy)
@@ -2974,60 +2992,61 @@ Image Symbol Table
     .text                                    0x00000642   Section        0  indicate_semi.o(.text)
     i.GET_ADC0_Port                          0x00000642   Section        0  adc.o(i.GET_ADC0_Port)
     i.GPIO_IRQHandler                        0x00000654   Section        0  gpio.o(i.GPIO_IRQHandler)
-    i.Ignacy                                 0x000006b8   Section        0  adc_conversion.o(i.Ignacy)
-    i.SystemCoreClockUpdate                  0x000006e8   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemCoreClockUpdate)
-    i.SystemInit                             0x000008f0   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemInit)
-    i.SystemInit_ExtMemCtl                   0x00000994   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemInit_ExtMemCtl)
-    SystemInit_ExtMemCtl                     0x00000995   Thumb Code   354  system_lpc407x_8x_177x_8x.o(i.SystemInit_ExtMemCtl)
-    i.TIMER0_IRQHandler                      0x00000b0c   Section        0  timer.o(i.TIMER0_IRQHandler)
-    i.UART0_IRQHandler                       0x00000b28   Section        0  uart.o(i.UART0_IRQHandler)
-    i._DelayMs                               0x00000b64   Section        0  system_lpc407x_8x_177x_8x.o(i._DelayMs)
-    _DelayMs                                 0x00000b65   Thumb Code    36  system_lpc407x_8x_177x_8x.o(i._DelayMs)
-    i.adc_init                               0x00000b8c   Section        0  adc.o(i.adc_init)
-    i.adc_read                               0x00000bf4   Section        0  adc.o(i.adc_read)
-    i.blink_feedback_led                     0x00000c38   Section        0  adc_conversion.o(i.blink_feedback_led)
-    blink_feedback_led                       0x00000c39   Thumb Code    30  adc_conversion.o(i.blink_feedback_led)
-    i.delay_ms                               0x00000c5c   Section        0  delay.o(i.delay_ms)
-    i.delay_us                               0x00000c88   Section        0  delay.o(i.delay_us)
-    i.fpu_init                               0x00000cb4   Section        0  system_lpc407x_8x_177x_8x.o(i.fpu_init)
-    fpu_init                                 0x00000cb5   Thumb Code    62  system_lpc407x_8x_177x_8x.o(i.fpu_init)
-    i.gpio_set                               0x00000d00   Section        0  gpio.o(i.gpio_set)
-    i.gpio_set_mode                          0x00000d24   Section        0  gpio.o(i.gpio_set_mode)
-    i.lcd_clear                              0x00000dc4   Section        0  lcd.o(i.lcd_clear)
-    i.lcd_init                               0x00000dd8   Section        0  lcd.o(i.lcd_init)
-    i.lcd_print                              0x00000e28   Section        0  lcd.o(i.lcd_print)
-    i.lcd_put_char                           0x00000e3c   Section        0  lcd.o(i.lcd_put_char)
-    i.lcd_setData                            0x00000e40   Section        0  lcd.o(i.lcd_setData)
-    i.lcd_setEnable                          0x00000ea4   Section        0  lcd.o(i.lcd_setEnable)
-    i.lcd_setRS                              0x00000ec4   Section        0  lcd.o(i.lcd_setRS)
-    i.lcd_set_cursor                         0x00000ee4   Section        0  lcd.o(i.lcd_set_cursor)
-    i.lcd_write_4bit                         0x00000ef2   Section        0  lcd.o(i.lcd_write_4bit)
-    i.lcd_write_cmd                          0x00000f1a   Section        0  lcd.o(i.lcd_write_cmd)
-    i.lcd_write_data                         0x00000f34   Section        0  lcd.o(i.lcd_write_data)
-    lcd_write_data                           0x00000f35   Thumb Code    26  lcd.o(i.lcd_write_data)
-    i.main                                   0x00000f4e   Section        0  main.o(i.main)
-    i.morse_to_char                          0x00000f58   Section        0  adc_conversion.o(i.morse_to_char)
-    i.run_adc_conversion                     0x00000f94   Section        0  adc_conversion.o(i.run_adc_conversion)
-    i.simple_delay_ms                        0x00001148   Section        0  adc_conversion.o(i.simple_delay_ms)
-    simple_delay_ms                          0x00001149   Thumb Code    44  adc_conversion.o(i.simple_delay_ms)
-    i.spi_init                               0x00001174   Section        0  lcd.o(i.spi_init)
-    i.spi_writeBus                           0x000011c4   Section        0  lcd.o(i.spi_writeBus)
-    i.uart_rx                                0x0000122c   Section        0  uart.o(i.uart_rx)
-    i.update_iir_filter                      0x0000123c   Section        0  adc_conversion.o(i.update_iir_filter)
-    update_iir_filter                        0x0000123d   Thumb Code    36  adc_conversion.o(i.update_iir_filter)
-    x$fpl$fpinit                             0x0000126c   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x0000126c   Number         0  fpinit.o(x$fpl$fpinit)
-    .constdata                               0x00001278   Section      440  adc_conversion.o(.constdata)
-    .conststring                             0x00001430   Section      370  adc_conversion.o(.conststring)
+    i.SysTick_Config                         0x000006b8   Section        0  delay.o(i.SysTick_Config)
+    SysTick_Config                           0x000006b9   Thumb Code    36  delay.o(i.SysTick_Config)
+    i.SysTick_Handler                        0x000006e0   Section        0  delay.o(i.SysTick_Handler)
+    i.SystemCoreClockUpdate                  0x000006f0   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemCoreClockUpdate)
+    i.SystemInit                             0x000008f8   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemInit)
+    i.SystemInit_ExtMemCtl                   0x0000099c   Section        0  system_lpc407x_8x_177x_8x.o(i.SystemInit_ExtMemCtl)
+    SystemInit_ExtMemCtl                     0x0000099d   Thumb Code   354  system_lpc407x_8x_177x_8x.o(i.SystemInit_ExtMemCtl)
+    i.TIMER0_IRQHandler                      0x00000b14   Section        0  timer.o(i.TIMER0_IRQHandler)
+    i.UART0_IRQHandler                       0x00000b30   Section        0  uart.o(i.UART0_IRQHandler)
+    i._DelayMs                               0x00000b6c   Section        0  system_lpc407x_8x_177x_8x.o(i._DelayMs)
+    _DelayMs                                 0x00000b6d   Thumb Code    36  system_lpc407x_8x_177x_8x.o(i._DelayMs)
+    i.adc_init                               0x00000b94   Section        0  adc.o(i.adc_init)
+    i.adc_read                               0x00000bfc   Section        0  adc.o(i.adc_read)
+    i.calc_movingAverage                     0x00000c40   Section        0  adc_conversion.o(i.calc_movingAverage)
+    i.delay_100us_low_power                  0x00000c70   Section        0  delay.o(i.delay_100us_low_power)
+    i.delay_ms                               0x00000ca4   Section        0  delay.o(i.delay_ms)
+    i.delay_ms_low_power                     0x00000cd0   Section        0  delay.o(i.delay_ms_low_power)
+    i.delay_us                               0x00000d04   Section        0  delay.o(i.delay_us)
+    i.fpu_init                               0x00000d30   Section        0  system_lpc407x_8x_177x_8x.o(i.fpu_init)
+    fpu_init                                 0x00000d31   Thumb Code    62  system_lpc407x_8x_177x_8x.o(i.fpu_init)
+    i.gpio_get                               0x00000d7c   Section        0  gpio.o(i.gpio_get)
+    i.gpio_set                               0x00000d94   Section        0  gpio.o(i.gpio_set)
+    i.gpio_set_mode                          0x00000db8   Section        0  gpio.o(i.gpio_set_mode)
+    i.lcd_clear                              0x00000e58   Section        0  lcd.o(i.lcd_clear)
+    i.lcd_init                               0x00000e6c   Section        0  lcd.o(i.lcd_init)
+    i.lcd_print                              0x00000ebc   Section        0  lcd.o(i.lcd_print)
+    i.lcd_put_char                           0x00000ed0   Section        0  lcd.o(i.lcd_put_char)
+    i.lcd_setData                            0x00000ed4   Section        0  lcd.o(i.lcd_setData)
+    i.lcd_setEnable                          0x00000f38   Section        0  lcd.o(i.lcd_setEnable)
+    i.lcd_setRS                              0x00000f58   Section        0  lcd.o(i.lcd_setRS)
+    i.lcd_set_cursor                         0x00000f78   Section        0  lcd.o(i.lcd_set_cursor)
+    i.lcd_write_4bit                         0x00000f86   Section        0  lcd.o(i.lcd_write_4bit)
+    i.lcd_write_cmd                          0x00000fae   Section        0  lcd.o(i.lcd_write_cmd)
+    i.lcd_write_data                         0x00000fc8   Section        0  lcd.o(i.lcd_write_data)
+    lcd_write_data                           0x00000fc9   Thumb Code    26  lcd.o(i.lcd_write_data)
+    i.main                                   0x00000fe2   Section        0  main.o(i.main)
+    i.morse_to_char                          0x00000fec   Section        0  adc_conversion.o(i.morse_to_char)
+    i.run_adc_conversion                     0x00001028   Section        0  adc_conversion.o(i.run_adc_conversion)
+    i.spi_init                               0x000011ec   Section        0  lcd.o(i.spi_init)
+    i.spi_writeBus                           0x0000123c   Section        0  lcd.o(i.spi_writeBus)
+    i.switch_get                             0x000012a4   Section        0  switches.o(i.switch_get)
+    i.switches_init                          0x000012b4   Section        0  switches.o(i.switches_init)
+    i.uart_rx                                0x000012f0   Section        0  uart.o(i.uart_rx)
+    x$fpl$fpinit                             0x00001300   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x00001300   Number         0  fpinit.o(x$fpl$fpinit)
+    .constdata                               0x0000130c   Section      440  adc_conversion.o(.constdata)
+    .conststring                             0x000014c4   Section      370  adc_conversion.o(.conststring)
     .data                                    0x10000000   Section        4  timer.o(.data)
     timer_callback                           0x10000000   Data           4  timer.o(.data)
     .data                                    0x10000004   Section       16  gpio.o(.data)
     GPIO_callback                            0x10000010   Data           4  gpio.o(.data)
     .data                                    0x10000014   Section        4  uart.o(.data)
     UART_callback                            0x10000014   Data           4  uart.o(.data)
-    .data                                    0x10000018   Section        1  lcd.o(.data)
-    .data                                    0x1000001c   Section        4  adc_conversion.o(.data)
-    filtered_adc                             0x1000001c   Data           4  adc_conversion.o(.data)
+    .data                                    0x10000018   Section        4  delay.o(.data)
+    .data                                    0x1000001c   Section        1  lcd.o(.data)
     .data                                    0x10000020   Section       16  system_lpc407x_8x_177x_8x.o(.data)
     .bss                                     0x10000030   Section       96  libspace.o(.bss)
     HEAP                                     0x10000090   Section        0  startup_lpc407x_8x_177x_8x.o(HEAP)
@@ -3137,7 +3156,6 @@ Image Symbol Table
     SVC_Handler                              0x000001ab   Thumb Code     2  startup_lpc407x_8x_177x_8x.o(.text)
     DebugMon_Handler                         0x000001ad   Thumb Code     2  startup_lpc407x_8x_177x_8x.o(.text)
     PendSV_Handler                           0x000001af   Thumb Code     2  startup_lpc407x_8x_177x_8x.o(.text)
-    SysTick_Handler                          0x000001b1   Thumb Code     2  startup_lpc407x_8x_177x_8x.o(.text)
     ADC_IRQHandler                           0x000001b3   Thumb Code     0  startup_lpc407x_8x_177x_8x.o(.text)
     BOD_IRQHandler                           0x000001b3   Thumb Code     0  startup_lpc407x_8x_177x_8x.o(.text)
     CANActivity_IRQHandler                   0x000001b3   Thumb Code     0  startup_lpc407x_8x_177x_8x.o(.text)
@@ -3212,42 +3230,49 @@ Image Symbol Table
     GET_ADC0_Port                            0x00000643   Thumb Code    16  adc.o(i.GET_ADC0_Port)
     __semihosting_library_function           0x00000643   Thumb Code     0  indicate_semi.o(.text)
     GPIO_IRQHandler                          0x00000655   Thumb Code    90  gpio.o(i.GPIO_IRQHandler)
-    Ignacy                                   0x000006b9   Thumb Code    46  adc_conversion.o(i.Ignacy)
-    SystemCoreClockUpdate                    0x000006e9   Thumb Code   508  system_lpc407x_8x_177x_8x.o(i.SystemCoreClockUpdate)
-    SystemInit                               0x000008f1   Thumb Code   152  system_lpc407x_8x_177x_8x.o(i.SystemInit)
-    TIMER0_IRQHandler                        0x00000b0d   Thumb Code    24  timer.o(i.TIMER0_IRQHandler)
-    UART0_IRQHandler                         0x00000b29   Thumb Code    52  uart.o(i.UART0_IRQHandler)
-    adc_init                                 0x00000b8d   Thumb Code    80  adc.o(i.adc_init)
-    adc_read                                 0x00000bf5   Thumb Code    64  adc.o(i.adc_read)
-    delay_ms                                 0x00000c5d   Thumb Code    36  delay.o(i.delay_ms)
-    delay_us                                 0x00000c89   Thumb Code    36  delay.o(i.delay_us)
-    gpio_set                                 0x00000d01   Thumb Code    32  gpio.o(i.gpio_set)
-    gpio_set_mode                            0x00000d25   Thumb Code   146  gpio.o(i.gpio_set_mode)
-    lcd_clear                                0x00000dc5   Thumb Code    20  lcd.o(i.lcd_clear)
-    lcd_init                                 0x00000dd9   Thumb Code    80  lcd.o(i.lcd_init)
-    lcd_print                                0x00000e29   Thumb Code    20  lcd.o(i.lcd_print)
-    lcd_put_char                             0x00000e3d   Thumb Code     4  lcd.o(i.lcd_put_char)
-    lcd_setData                              0x00000e41   Thumb Code    96  lcd.o(i.lcd_setData)
-    lcd_setEnable                            0x00000ea5   Thumb Code    26  lcd.o(i.lcd_setEnable)
-    lcd_setRS                                0x00000ec5   Thumb Code    26  lcd.o(i.lcd_setRS)
-    lcd_set_cursor                           0x00000ee5   Thumb Code    14  lcd.o(i.lcd_set_cursor)
-    lcd_write_4bit                           0x00000ef3   Thumb Code    40  lcd.o(i.lcd_write_4bit)
-    lcd_write_cmd                            0x00000f1b   Thumb Code    26  lcd.o(i.lcd_write_cmd)
-    main                                     0x00000f4f   Thumb Code    10  main.o(i.main)
-    morse_to_char                            0x00000f59   Thumb Code    54  adc_conversion.o(i.morse_to_char)
-    run_adc_conversion                       0x00000f95   Thumb Code   396  adc_conversion.o(i.run_adc_conversion)
-    spi_init                                 0x00001175   Thumb Code    72  lcd.o(i.spi_init)
-    spi_writeBus                             0x000011c5   Thumb Code    96  lcd.o(i.spi_writeBus)
-    uart_rx                                  0x0000122d   Thumb Code    12  uart.o(i.uart_rx)
-    _fp_init                                 0x0000126d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x00001275   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x00001275   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    Region$$Table$$Base                      0x000015a4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000015c4   Number         0  anon$$obj.o(Region$$Table)
+    SysTick_Handler                          0x000006e1   Thumb Code    10  delay.o(i.SysTick_Handler)
+    SystemCoreClockUpdate                    0x000006f1   Thumb Code   508  system_lpc407x_8x_177x_8x.o(i.SystemCoreClockUpdate)
+    SystemInit                               0x000008f9   Thumb Code   152  system_lpc407x_8x_177x_8x.o(i.SystemInit)
+    TIMER0_IRQHandler                        0x00000b15   Thumb Code    24  timer.o(i.TIMER0_IRQHandler)
+    UART0_IRQHandler                         0x00000b31   Thumb Code    52  uart.o(i.UART0_IRQHandler)
+    adc_init                                 0x00000b95   Thumb Code    80  adc.o(i.adc_init)
+    adc_read                                 0x00000bfd   Thumb Code    64  adc.o(i.adc_read)
+    calc_movingAverage                       0x00000c41   Thumb Code    46  adc_conversion.o(i.calc_movingAverage)
+    delay_100us_low_power                    0x00000c71   Thumb Code    44  delay.o(i.delay_100us_low_power)
+    delay_ms                                 0x00000ca5   Thumb Code    36  delay.o(i.delay_ms)
+    delay_ms_low_power                       0x00000cd1   Thumb Code    44  delay.o(i.delay_ms_low_power)
+    delay_us                                 0x00000d05   Thumb Code    36  delay.o(i.delay_us)
+    gpio_get                                 0x00000d7d   Thumb Code    18  gpio.o(i.gpio_get)
+    gpio_set                                 0x00000d95   Thumb Code    32  gpio.o(i.gpio_set)
+    gpio_set_mode                            0x00000db9   Thumb Code   146  gpio.o(i.gpio_set_mode)
+    lcd_clear                                0x00000e59   Thumb Code    20  lcd.o(i.lcd_clear)
+    lcd_init                                 0x00000e6d   Thumb Code    80  lcd.o(i.lcd_init)
+    lcd_print                                0x00000ebd   Thumb Code    20  lcd.o(i.lcd_print)
+    lcd_put_char                             0x00000ed1   Thumb Code     4  lcd.o(i.lcd_put_char)
+    lcd_setData                              0x00000ed5   Thumb Code    96  lcd.o(i.lcd_setData)
+    lcd_setEnable                            0x00000f39   Thumb Code    26  lcd.o(i.lcd_setEnable)
+    lcd_setRS                                0x00000f59   Thumb Code    26  lcd.o(i.lcd_setRS)
+    lcd_set_cursor                           0x00000f79   Thumb Code    14  lcd.o(i.lcd_set_cursor)
+    lcd_write_4bit                           0x00000f87   Thumb Code    40  lcd.o(i.lcd_write_4bit)
+    lcd_write_cmd                            0x00000faf   Thumb Code    26  lcd.o(i.lcd_write_cmd)
+    main                                     0x00000fe3   Thumb Code    10  main.o(i.main)
+    morse_to_char                            0x00000fed   Thumb Code    54  adc_conversion.o(i.morse_to_char)
+    run_adc_conversion                       0x00001029   Thumb Code   410  adc_conversion.o(i.run_adc_conversion)
+    spi_init                                 0x000011ed   Thumb Code    72  lcd.o(i.spi_init)
+    spi_writeBus                             0x0000123d   Thumb Code    96  lcd.o(i.spi_writeBus)
+    switch_get                               0x000012a5   Thumb Code    16  switches.o(i.switch_get)
+    switches_init                            0x000012b5   Thumb Code    54  switches.o(i.switches_init)
+    uart_rx                                  0x000012f1   Thumb Code    12  uart.o(i.uart_rx)
+    _fp_init                                 0x00001301   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x00001309   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x00001309   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    Region$$Table$$Base                      0x00001638   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001658   Number         0  anon$$obj.o(Region$$Table)
     IRQ_status                               0x10000004   Data           4  gpio.o(.data)
     IRQ_port_num                             0x10000008   Data           4  gpio.o(.data)
     IRQ_pin_index                            0x1000000c   Data           4  gpio.o(.data)
-    _spi_bus                                 0x10000018   Data           1  lcd.o(.data)
+    tick_count                               0x10000018   Data           4  delay.o(.data)
+    _spi_bus                                 0x1000001c   Data           1  lcd.o(.data)
     SystemCoreClock                          0x10000020   Data           4  system_lpc407x_8x_177x_8x.o(.data)
     PeripheralClock                          0x10000024   Data           4  system_lpc407x_8x_177x_8x.o(.data)
     EMCClock                                 0x10000028   Data           4  system_lpc407x_8x_177x_8x.o(.data)
@@ -3263,153 +3288,157 @@ Memory Map of the image
 
   Image Entry point : 0x00000199
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x000015f4, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001688, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000015c4, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001658, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000e4   Data   RO         7434    RESET               startup_lpc407x_8x_177x_8x.o
-    0x000000e4   0x000000e4   0x00000008   Code   RO         7545  * !!!main             c_w.l(__main.o)
-    0x000000ec   0x000000ec   0x00000034   Code   RO         7975    !!!scatter          c_w.l(__scatter.o)
-    0x00000120   0x00000120   0x0000001a   Code   RO         7977    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x00000000   0x00000000   0x000000e4   Data   RO         7486    RESET               startup_lpc407x_8x_177x_8x.o
+    0x000000e4   0x000000e4   0x00000008   Code   RO         7597  * !!!main             c_w.l(__main.o)
+    0x000000ec   0x000000ec   0x00000034   Code   RO         8027    !!!scatter          c_w.l(__scatter.o)
+    0x00000120   0x00000120   0x0000001a   Code   RO         8029    !!handler_copy      c_w.l(__scatter_copy.o)
     0x0000013a   0x0000013a   0x00000002   PAD
-    0x0000013c   0x0000013c   0x0000001c   Code   RO         7979    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000158   0x00000158   0x00000000   Code   RO         7532    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
-    0x00000158   0x00000158   0x00000006   Code   RO         7531    .ARM.Collect$$_printf_percent$$00000014  c_w.l(_printf_s.o)
-    0x0000015e   0x0000015e   0x00000004   Code   RO         7738    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
-    0x00000162   0x00000162   0x00000002   Code   RO         7846    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x00000164   0x00000164   0x00000004   Code   RO         7855    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7858    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7861    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7863    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7865    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7868    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7870    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7872    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7874    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7876    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7878    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7880    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7882    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7884    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7886    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7888    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7892    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7894    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7896    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         7898    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x00000168   0x00000168   0x00000002   Code   RO         7899    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x0000016a   0x0000016a   0x00000002   Code   RO         7930    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7956    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7958    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7960    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7963    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7966    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7968    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000000   Code   RO         7971    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
-    0x0000016c   0x0000016c   0x00000002   Code   RO         7972    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
-    0x0000016e   0x0000016e   0x00000000   Code   RO         7725    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x0000016e   0x0000016e   0x00000000   Code   RO         7807    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x0000016e   0x0000016e   0x00000006   Code   RO         7819    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x00000174   0x00000174   0x00000000   Code   RO         7809    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x00000174   0x00000174   0x00000004   Code   RO         7810    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x00000178   0x00000178   0x00000000   Code   RO         7812    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x00000178   0x00000178   0x00000008   Code   RO         7813    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x00000180   0x00000180   0x00000002   Code   RO         7847    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x00000182   0x00000182   0x00000000   Code   RO         7903    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x00000182   0x00000182   0x00000004   Code   RO         7904    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000186   0x00000186   0x00000006   Code   RO         7905    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x0000013c   0x0000013c   0x0000001c   Code   RO         8031    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000158   0x00000158   0x00000000   Code   RO         7584    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
+    0x00000158   0x00000158   0x00000006   Code   RO         7583    .ARM.Collect$$_printf_percent$$00000014  c_w.l(_printf_s.o)
+    0x0000015e   0x0000015e   0x00000004   Code   RO         7790    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
+    0x00000162   0x00000162   0x00000002   Code   RO         7898    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x00000164   0x00000164   0x00000004   Code   RO         7907    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7910    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7913    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7915    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7917    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7920    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7922    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7924    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7926    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7928    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7930    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7932    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7934    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7936    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7938    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7940    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7944    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7946    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7948    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         7950    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x00000168   0x00000168   0x00000002   Code   RO         7951    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x0000016a   0x0000016a   0x00000002   Code   RO         7982    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8008    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8010    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8012    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8015    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8018    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8020    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000000   Code   RO         8023    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
+    0x0000016c   0x0000016c   0x00000002   Code   RO         8024    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
+    0x0000016e   0x0000016e   0x00000000   Code   RO         7777    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x0000016e   0x0000016e   0x00000000   Code   RO         7859    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x0000016e   0x0000016e   0x00000006   Code   RO         7871    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x00000174   0x00000174   0x00000000   Code   RO         7861    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x00000174   0x00000174   0x00000004   Code   RO         7862    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x00000178   0x00000178   0x00000000   Code   RO         7864    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x00000178   0x00000178   0x00000008   Code   RO         7865    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x00000180   0x00000180   0x00000002   Code   RO         7899    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x00000182   0x00000182   0x00000000   Code   RO         7955    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x00000182   0x00000182   0x00000004   Code   RO         7956    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000186   0x00000186   0x00000006   Code   RO         7957    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0000018c   0x0000018c   0x0000000c   Code   RO          436    .emb_text           delay.o
-    0x00000198   0x00000198   0x0000003c   Code   RO         7436  * .text               startup_lpc407x_8x_177x_8x.o
-    0x000001d4   0x000001d4   0x000000ee   Code   RO         7495    .text               c_w.l(lludivv7m.o)
+    0x00000198   0x00000198   0x0000003c   Code   RO         7488  * .text               startup_lpc407x_8x_177x_8x.o
+    0x000001d4   0x000001d4   0x000000ee   Code   RO         7547    .text               c_w.l(lludivv7m.o)
     0x000002c2   0x000002c2   0x00000002   PAD
-    0x000002c4   0x000002c4   0x00000028   Code   RO         7505    .text               c_w.l(noretval__2sprintf.o)
-    0x000002ec   0x000002ec   0x00000006   Code   RO         7543    .text               c_w.l(heapauxi.o)
-    0x000002f2   0x000002f2   0x0000000a   Code   RO         7734    .text               c_w.l(_sputc.o)
-    0x000002fc   0x000002fc   0x00000004   Code   RO         7435    .ARM.__at_0x02FC    startup_lpc407x_8x_177x_8x.o
-    0x00000300   0x00000300   0x00000048   Code   RO         7501    .text               c_w.l(llsdiv.o)
-    0x00000348   0x00000348   0x00000068   Code   RO         7507    .text               c_w.l(__printf.o)
-    0x000003b0   0x000003b0   0x00000052   Code   RO         7509    .text               c_w.l(_printf_str.o)
-    0x00000402   0x00000402   0x0000003e   Code   RO         7533    .text               c_w.l(strlen.o)
-    0x00000440   0x00000440   0x00000064   Code   RO         7535    .text               c_w.l(rt_memcpy_w.o)
-    0x000004a4   0x000004a4   0x0000004e   Code   RO         7539    .text               c_w.l(rt_memclr_w.o)
+    0x000002c4   0x000002c4   0x00000028   Code   RO         7557    .text               c_w.l(noretval__2sprintf.o)
+    0x000002ec   0x000002ec   0x00000006   Code   RO         7595    .text               c_w.l(heapauxi.o)
+    0x000002f2   0x000002f2   0x0000000a   Code   RO         7786    .text               c_w.l(_sputc.o)
+    0x000002fc   0x000002fc   0x00000004   Code   RO         7487    .ARM.__at_0x02FC    startup_lpc407x_8x_177x_8x.o
+    0x00000300   0x00000300   0x00000048   Code   RO         7553    .text               c_w.l(llsdiv.o)
+    0x00000348   0x00000348   0x00000068   Code   RO         7559    .text               c_w.l(__printf.o)
+    0x000003b0   0x000003b0   0x00000052   Code   RO         7561    .text               c_w.l(_printf_str.o)
+    0x00000402   0x00000402   0x0000003e   Code   RO         7585    .text               c_w.l(strlen.o)
+    0x00000440   0x00000440   0x00000064   Code   RO         7587    .text               c_w.l(rt_memcpy_w.o)
+    0x000004a4   0x000004a4   0x0000004e   Code   RO         7591    .text               c_w.l(rt_memclr_w.o)
     0x000004f2   0x000004f2   0x00000002   PAD
-    0x000004f4   0x000004f4   0x00000080   Code   RO         7541    .text               c_w.l(strcmpv7m.o)
-    0x00000574   0x00000574   0x00000030   Code   RO         7732    .text               c_w.l(_printf_char_common.o)
-    0x000005a4   0x000005a4   0x0000002c   Code   RO         7736    .text               c_w.l(_printf_char.o)
-    0x000005d0   0x000005d0   0x00000008   Code   RO         7830    .text               c_w.l(libspace.o)
-    0x000005d8   0x000005d8   0x0000004a   Code   RO         7833    .text               c_w.l(sys_stackheap_outer.o)
-    0x00000622   0x00000622   0x00000012   Code   RO         7835    .text               c_w.l(exit.o)
-    0x00000634   0x00000634   0x0000000c   Code   RO         7900    .text               c_w.l(sys_exit.o)
-    0x00000640   0x00000640   0x00000002   Code   RO         7919    .text               c_w.l(use_no_semi.o)
-    0x00000642   0x00000642   0x00000000   Code   RO         7921    .text               c_w.l(indicate_semi.o)
+    0x000004f4   0x000004f4   0x00000080   Code   RO         7593    .text               c_w.l(strcmpv7m.o)
+    0x00000574   0x00000574   0x00000030   Code   RO         7784    .text               c_w.l(_printf_char_common.o)
+    0x000005a4   0x000005a4   0x0000002c   Code   RO         7788    .text               c_w.l(_printf_char.o)
+    0x000005d0   0x000005d0   0x00000008   Code   RO         7882    .text               c_w.l(libspace.o)
+    0x000005d8   0x000005d8   0x0000004a   Code   RO         7885    .text               c_w.l(sys_stackheap_outer.o)
+    0x00000622   0x00000622   0x00000012   Code   RO         7887    .text               c_w.l(exit.o)
+    0x00000634   0x00000634   0x0000000c   Code   RO         7952    .text               c_w.l(sys_exit.o)
+    0x00000640   0x00000640   0x00000002   Code   RO         7971    .text               c_w.l(use_no_semi.o)
+    0x00000642   0x00000642   0x00000000   Code   RO         7973    .text               c_w.l(indicate_semi.o)
     0x00000642   0x00000642   0x00000010   Code   RO          312    i.GET_ADC0_Port     adc.o
     0x00000652   0x00000652   0x00000002   PAD
     0x00000654   0x00000654   0x00000064   Code   RO          144    i.GPIO_IRQHandler   gpio.o
-    0x000006b8   0x000006b8   0x0000002e   Code   RO          613    i.Ignacy            adc_conversion.o
-    0x000006e6   0x000006e6   0x00000002   PAD
-    0x000006e8   0x000006e8   0x00000208   Code   RO         7445    i.SystemCoreClockUpdate  system_lpc407x_8x_177x_8x.o
-    0x000008f0   0x000008f0   0x000000a4   Code   RO         7446    i.SystemInit        system_lpc407x_8x_177x_8x.o
-    0x00000994   0x00000994   0x00000178   Code   RO         7447    i.SystemInit_ExtMemCtl  system_lpc407x_8x_177x_8x.o
-    0x00000b0c   0x00000b0c   0x0000001c   Code   RO           87    i.TIMER0_IRQHandler  timer.o
-    0x00000b28   0x00000b28   0x0000003c   Code   RO          353    i.UART0_IRQHandler  uart.o
-    0x00000b64   0x00000b64   0x00000028   Code   RO         7448    i._DelayMs          system_lpc407x_8x_177x_8x.o
-    0x00000b8c   0x00000b8c   0x00000068   Code   RO          313    i.adc_init          adc.o
-    0x00000bf4   0x00000bf4   0x00000044   Code   RO          314    i.adc_read          adc.o
-    0x00000c38   0x00000c38   0x00000024   Code   RO          614    i.blink_feedback_led  adc_conversion.o
-    0x00000c5c   0x00000c5c   0x0000002c   Code   RO          437    i.delay_ms          delay.o
-    0x00000c88   0x00000c88   0x0000002c   Code   RO          438    i.delay_us          delay.o
-    0x00000cb4   0x00000cb4   0x0000004c   Code   RO         7449    i.fpu_init          system_lpc407x_8x_177x_8x.o
-    0x00000d00   0x00000d00   0x00000024   Code   RO          147    i.gpio_set          gpio.o
-    0x00000d24   0x00000d24   0x000000a0   Code   RO          149    i.gpio_set_mode     gpio.o
-    0x00000dc4   0x00000dc4   0x00000014   Code   RO          473    i.lcd_clear         lcd.o
-    0x00000dd8   0x00000dd8   0x00000050   Code   RO          474    i.lcd_init          lcd.o
-    0x00000e28   0x00000e28   0x00000014   Code   RO          475    i.lcd_print         lcd.o
-    0x00000e3c   0x00000e3c   0x00000004   Code   RO          476    i.lcd_put_char      lcd.o
-    0x00000e40   0x00000e40   0x00000064   Code   RO          477    i.lcd_setData       lcd.o
-    0x00000ea4   0x00000ea4   0x00000020   Code   RO          478    i.lcd_setEnable     lcd.o
-    0x00000ec4   0x00000ec4   0x00000020   Code   RO          479    i.lcd_setRS         lcd.o
-    0x00000ee4   0x00000ee4   0x0000000e   Code   RO          480    i.lcd_set_cursor    lcd.o
-    0x00000ef2   0x00000ef2   0x00000028   Code   RO          482    i.lcd_write_4bit    lcd.o
-    0x00000f1a   0x00000f1a   0x0000001a   Code   RO          483    i.lcd_write_cmd     lcd.o
-    0x00000f34   0x00000f34   0x0000001a   Code   RO          484    i.lcd_write_data    lcd.o
-    0x00000f4e   0x00000f4e   0x0000000a   Code   RO          681    i.main              main.o
-    0x00000f58   0x00000f58   0x0000003c   Code   RO          615    i.morse_to_char     adc_conversion.o
-    0x00000f94   0x00000f94   0x000001b4   Code   RO          616    i.run_adc_conversion  adc_conversion.o
-    0x00001148   0x00001148   0x0000002c   Code   RO          617    i.simple_delay_ms   adc_conversion.o
-    0x00001174   0x00001174   0x00000050   Code   RO          485    i.spi_init          lcd.o
-    0x000011c4   0x000011c4   0x00000068   Code   RO          486    i.spi_writeBus      lcd.o
-    0x0000122c   0x0000122c   0x00000010   Code   RO          357    i.uart_rx           uart.o
-    0x0000123c   0x0000123c   0x00000030   Code   RO          618    i.update_iir_filter  adc_conversion.o
-    0x0000126c   0x0000126c   0x0000000a   Code   RO         7915    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x00001276   0x00001276   0x00000002   PAD
-    0x00001278   0x00001278   0x000001b8   Data   RO          619    .constdata          adc_conversion.o
-    0x00001430   0x00001430   0x00000172   Data   RO          620    .conststring        adc_conversion.o
-    0x000015a2   0x000015a2   0x00000002   PAD
-    0x000015a4   0x000015a4   0x00000020   Data   RO         7973    Region$$Table       anon$$obj.o
+    0x000006b8   0x000006b8   0x00000028   Code   RO          437    i.SysTick_Config    delay.o
+    0x000006e0   0x000006e0   0x00000010   Code   RO          438    i.SysTick_Handler   delay.o
+    0x000006f0   0x000006f0   0x00000208   Code   RO         7497    i.SystemCoreClockUpdate  system_lpc407x_8x_177x_8x.o
+    0x000008f8   0x000008f8   0x000000a4   Code   RO         7498    i.SystemInit        system_lpc407x_8x_177x_8x.o
+    0x0000099c   0x0000099c   0x00000178   Code   RO         7499    i.SystemInit_ExtMemCtl  system_lpc407x_8x_177x_8x.o
+    0x00000b14   0x00000b14   0x0000001c   Code   RO           87    i.TIMER0_IRQHandler  timer.o
+    0x00000b30   0x00000b30   0x0000003c   Code   RO          353    i.UART0_IRQHandler  uart.o
+    0x00000b6c   0x00000b6c   0x00000028   Code   RO         7500    i._DelayMs          system_lpc407x_8x_177x_8x.o
+    0x00000b94   0x00000b94   0x00000068   Code   RO          313    i.adc_init          adc.o
+    0x00000bfc   0x00000bfc   0x00000044   Code   RO          314    i.adc_read          adc.o
+    0x00000c40   0x00000c40   0x0000002e   Code   RO          676    i.calc_movingAverage  adc_conversion.o
+    0x00000c6e   0x00000c6e   0x00000002   PAD
+    0x00000c70   0x00000c70   0x00000034   Code   RO          439    i.delay_100us_low_power  delay.o
+    0x00000ca4   0x00000ca4   0x0000002c   Code   RO          440    i.delay_ms          delay.o
+    0x00000cd0   0x00000cd0   0x00000034   Code   RO          441    i.delay_ms_low_power  delay.o
+    0x00000d04   0x00000d04   0x0000002c   Code   RO          442    i.delay_us          delay.o
+    0x00000d30   0x00000d30   0x0000004c   Code   RO         7501    i.fpu_init          system_lpc407x_8x_177x_8x.o
+    0x00000d7c   0x00000d7c   0x00000018   Code   RO          145    i.gpio_get          gpio.o
+    0x00000d94   0x00000d94   0x00000024   Code   RO          147    i.gpio_set          gpio.o
+    0x00000db8   0x00000db8   0x000000a0   Code   RO          149    i.gpio_set_mode     gpio.o
+    0x00000e58   0x00000e58   0x00000014   Code   RO          503    i.lcd_clear         lcd.o
+    0x00000e6c   0x00000e6c   0x00000050   Code   RO          504    i.lcd_init          lcd.o
+    0x00000ebc   0x00000ebc   0x00000014   Code   RO          505    i.lcd_print         lcd.o
+    0x00000ed0   0x00000ed0   0x00000004   Code   RO          506    i.lcd_put_char      lcd.o
+    0x00000ed4   0x00000ed4   0x00000064   Code   RO          507    i.lcd_setData       lcd.o
+    0x00000f38   0x00000f38   0x00000020   Code   RO          508    i.lcd_setEnable     lcd.o
+    0x00000f58   0x00000f58   0x00000020   Code   RO          509    i.lcd_setRS         lcd.o
+    0x00000f78   0x00000f78   0x0000000e   Code   RO          510    i.lcd_set_cursor    lcd.o
+    0x00000f86   0x00000f86   0x00000028   Code   RO          512    i.lcd_write_4bit    lcd.o
+    0x00000fae   0x00000fae   0x0000001a   Code   RO          513    i.lcd_write_cmd     lcd.o
+    0x00000fc8   0x00000fc8   0x0000001a   Code   RO          514    i.lcd_write_data    lcd.o
+    0x00000fe2   0x00000fe2   0x0000000a   Code   RO          733    i.main              main.o
+    0x00000fec   0x00000fec   0x0000003c   Code   RO          677    i.morse_to_char     adc_conversion.o
+    0x00001028   0x00001028   0x000001c4   Code   RO          678    i.run_adc_conversion  adc_conversion.o
+    0x000011ec   0x000011ec   0x00000050   Code   RO          515    i.spi_init          lcd.o
+    0x0000123c   0x0000123c   0x00000068   Code   RO          516    i.spi_writeBus      lcd.o
+    0x000012a4   0x000012a4   0x00000010   Code   RO          643    i.switch_get        switches.o
+    0x000012b4   0x000012b4   0x0000003c   Code   RO          644    i.switches_init     switches.o
+    0x000012f0   0x000012f0   0x00000010   Code   RO          357    i.uart_rx           uart.o
+    0x00001300   0x00001300   0x0000000a   Code   RO         7967    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x0000130a   0x0000130a   0x00000002   PAD
+    0x0000130c   0x0000130c   0x000001b8   Data   RO          680    .constdata          adc_conversion.o
+    0x000014c4   0x000014c4   0x00000172   Data   RO          681    .conststring        adc_conversion.o
+    0x00001636   0x00001636   0x00000002   PAD
+    0x00001638   0x00001638   0x00000020   Data   RO         8025    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x10000000, Load base: 0x000015c4, Size: 0x00000030, Max: 0xffffffff, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x10000000   0x000015c4   0x00000004   Data   RW           92    .data               timer.o
-    0x10000004   0x000015c8   0x00000010   Data   RW          153    .data               gpio.o
-    0x10000014   0x000015d8   0x00000004   Data   RW          362    .data               uart.o
-    0x10000018   0x000015dc   0x00000001   Data   RW          487    .data               lcd.o
-    0x10000019   0x000015dd   0x00000003   PAD
-    0x1000001c   0x000015e0   0x00000004   Data   RW          621    .data               adc_conversion.o
-    0x10000020   0x000015e4   0x00000010   Data   RW         7450    .data               system_lpc407x_8x_177x_8x.o
-
-
-    Execution Region ER_ZI (Exec base: 0x10000030, Load base: 0x000015f4, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x10000000, Load base: 0x00001658, Size: 0x00000030, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x10000030        -       0x00000060   Zero   RW         7831    .bss                c_w.l(libspace.o)
-    0x10000090        -       0x00000000   Zero   RW         7433    HEAP                startup_lpc407x_8x_177x_8x.o
-    0x10000090        -       0x00000400   Zero   RW         7432    STACK               startup_lpc407x_8x_177x_8x.o
+    0x10000000   0x00001658   0x00000004   Data   RW           92    .data               timer.o
+    0x10000004   0x0000165c   0x00000010   Data   RW          153    .data               gpio.o
+    0x10000014   0x0000166c   0x00000004   Data   RW          362    .data               uart.o
+    0x10000018   0x00001670   0x00000004   Data   RW          443    .data               delay.o
+    0x1000001c   0x00001674   0x00000001   Data   RW          517    .data               lcd.o
+    0x1000001d   0x00001675   0x00000003   PAD
+    0x10000020   0x00001678   0x00000010   Data   RW         7502    .data               system_lpc407x_8x_177x_8x.o
+
+
+    Execution Region ER_ZI (Exec base: 0x10000030, Load base: 0x00001688, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x10000030        -       0x00000060   Zero   RW         7883    .bss                c_w.l(libspace.o)
+    0x10000090        -       0x00000000   Zero   RW         7485    HEAP                startup_lpc407x_8x_177x_8x.o
+    0x10000090        -       0x00000400   Zero   RW         7484    STACK               startup_lpc407x_8x_177x_8x.o
 
 
 ==============================================================================
@@ -3419,20 +3448,21 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       188         28          0          0          0       2446   adc.o
-       670         64        810          4          0       4790   adc_conversion.o
-       100         16          0          0          0       1678   delay.o
-       296         34          0         16          0       3369   gpio.o
-         0          0          0          0          0      30212   i2c.o
-       578         32          0          1          0       7487   lcd.o
-        10          0          0          0          0        491   main.o
-        64         26        228          0       1024       1180   startup_lpc407x_8x_177x_8x.o
-      1176         64          0         16          0       9081   system_lpc407x_8x_177x_8x.o
-        28          4          0          4          0       1340   timer.o
-        76         12          0          4          0       2460   uart.o
+       188         28          0          0          0       2402   adc.o
+       558         48        810          0          0       2974   adc_conversion.o
+       260         42          0          4          0      34765   delay.o
+       320         40          0         16          0       3904   gpio.o
+         0          0          0          0          0      30192   i2c.o
+       578         32          0          1          0       7347   lcd.o
+        10          0          0          0          0        483   main.o
+        64         26        228          0       1024       1156   startup_lpc407x_8x_177x_8x.o
+        76          6          0          0          0       1085   switches.o
+      1176         64          0         16          0       9013   system_lpc407x_8x_177x_8x.o
+        28          4          0          4          0       1312   timer.o
+        76         12          0          4          0       2424   uart.o
 
     ----------------------------------------------------------------------
-      3190        280       1072         48       1024      64534   Object Totals
+      3338        302       1072         48       1024      97057   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          2          3          0          0   (incl. Padding)
 
@@ -3498,15 +3528,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4500        308       1072         48       1120      62154   Grand Totals
-      4500        308       1072         48       1120      62154   ELF Image Totals
-      4500        308       1072         48          0          0   ROM Totals
+      4648        330       1072         48       1120      94277   Grand Totals
+      4648        330       1072         48       1120      94277   ELF Image Totals
+      4648        330       1072         48          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 5572 (   5.44kB)
+    Total RO  Size (Code + RO Data)                 5720 (   5.59kB)
     Total RW  Size (RW Data + ZI Data)              1168 (   1.14kB)
-    Total ROM Size (Code + RO Data + RW Data)       5620 (   5.49kB)
+    Total ROM Size (Code + RO Data + RW Data)       5768 (   5.63kB)
 
 ==============================================================================
 

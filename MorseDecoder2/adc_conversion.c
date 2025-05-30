@@ -6,6 +6,7 @@
 #include "adc_conversion.h"
 #include <stdio.h>          // For sprintf()
 #include <string.h>         // For string operations
+#include "switches.h"
 
 #define VREF 3.3            // ADC reference voltage in volts
 
@@ -139,6 +140,7 @@ void run_adc_conversion(void) {
 
     adc_init();
     lcd_init();
+		switches_init();
     lcd_clear();
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
@@ -151,7 +153,6 @@ void run_adc_conversion(void) {
 
     //filtered_adc = (float)adc_read();
 
-    
 
     int tone_duration = 0;
     int silence_duration = 0;
@@ -163,6 +164,12 @@ void run_adc_conversion(void) {
     int current_symbol_index = 0;
 
     while (1) {
+				if (switch_get(P_SW_CR)) {
+					lcd_clear();
+					sentence_index = 0;
+					sentence[0] = '\0';
+					delay_ms(10);
+				}
         int averagedSample = calc_movingAverage();
         //int raw_adc = adc_read();
         //float filt = update_iir_filter(raw_adc);
