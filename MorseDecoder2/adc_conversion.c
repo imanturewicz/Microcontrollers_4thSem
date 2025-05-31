@@ -66,10 +66,6 @@ char morse_to_char(const char* symbol) {
 
 int wait_for_start_signal(void) {
 
-    lcd_clear();
-    lcd_set_cursor(0, 0);
-    lcd_print("Waiting for the signal...");
-
     while (1) {
         int averagedSample = calc_movingAverage();
         int signal_active = (averagedSample > (BASE + THRESHOLD));
@@ -94,6 +90,8 @@ void run_adc_conversion(void) {
     adc_init();
     lcd_init();
 	switches_init();
+    lcd_clear();
+    lcd_set_cursor(0, 0);
 
     wait_for_start_signal();
 
@@ -195,7 +193,8 @@ void run_adc_conversion(void) {
                 current_symbol_index = 0;
             }
 						else if (silence_duration >= 2*WORD_GAP) {
-									break;
+									//break;
+                                    bool if_again = true;
 						}
         } 
 
@@ -203,5 +202,9 @@ void run_adc_conversion(void) {
             demod_buffer[demod_index] = '\0';
         }
 				delay_ms_low_power(14);
+                if(if_again) {
+                    wait_for_start_signal();
+                }
+                if_again = false;
     }
 }

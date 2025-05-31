@@ -102,9 +102,8 @@ Characters are printed on the LCD in real time. To avoid overflow,
 the most recent 16 characters are shown, the older ones scroll off screen. 
 The system also shows live Morse signals (dots and dashes) on the first LCD row.
 To handle word separation, the spaces are inserted in the message when a long silence is detected. 
-If the character displayed is a `\#` then a red LED is turned on. Aditionally, if a switch is pressed 
-the display is cleared. When the signal stops, the system turns off leaving the received message on
-the LCD and waits for a reboot.
+If the character displayed is a `\#` then a red LED is turned on. Additionally, if a switch is pressed 
+the display is cleared. When the signal stops, the system starts waiting for a new signal.
 
 \subsection{Functionality overview}
 The system is set to decode Morse code signals at a rate of 50 words per minute. It accepts tones with
