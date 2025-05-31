@@ -65,60 +65,20 @@ char morse_to_char(const char* symbol) {
 }
 
 int wait_for_start_signal(void) {
-    int tone_duration = 0;
-    int silence_duration = 0;
-    int is_tone = 0;
-
-    char current_symbol[16];
-    int current_symbol_index = 0;
 
     lcd_clear();
     lcd_set_cursor(0, 0);
-    lcd_print("Waiting for 'C'");
+    lcd_print("Waiting for the signal...");
 
     while (1) {
         int averagedSample = calc_movingAverage();
         int signal_active = (averagedSample > (BASE + THRESHOLD));
 
         if (signal_active) {
-            tone_duration++;
-            silence_duration = 0;
-            if (!is_tone) is_tone = 1;
-        } else {
-            silence_duration++;
-
-            if (is_tone) {
-                if (tone_duration >= DOT_DURATION && tone_duration < DASH_DURATION) {
-                    if (current_symbol_index < sizeof(current_symbol) - 1)
-                        current_symbol[current_symbol_index++] = '.';
-                } else if (tone_duration >= DASH_DURATION) {
-                    if (current_symbol_index < sizeof(current_symbol) - 1)
-                        current_symbol[current_symbol_index++] = '-';
-                }
-                tone_duration = 0;
-                is_tone = 0;
-            }
-
-            if (silence_duration == SYMBOL_GAP || silence_duration == WORD_GAP) {
-                current_symbol[current_symbol_index] = '\0';
-
-                lcd_set_cursor(0, 1);
-                lcd_print("Recv: ");
-                lcd_print(current_symbol);
-
-                if (strcmp(current_symbol, "-.-.") == 0) { // Morse for 'C'
-                    lcd_clear();
-                    lcd_set_cursor(0, 0);
-                    
-                    return 1;
-                }
-
-                // Reset for next symbol
-                current_symbol_index = 0;
-                current_symbol[0] = '\0';
-            }
+            return 0; // Signal detected, exit waiting loop
         }
-				delay_ms_low_power(14);
+		
+        delay_ms_low_power(1); // Wait for a short time before checking again
     }
 
     return 0;
@@ -133,7 +93,10 @@ void run_adc_conversion(void) {
 
     adc_init();
     lcd_init();
-		switches_init();
+	switches_init();
+
+    wait_for_start_signal();
+
     lcd_clear();
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
@@ -154,7 +117,7 @@ void run_adc_conversion(void) {
 					lcd_clear();
 					sentence_index = 0;
 					sentence[0] = '\0';
-					delay_ms(2);
+					delay_ms_low_power(2);
 				}
 
         int averagedSample = calc_movingAverage();
@@ -232,7 +195,7 @@ void run_adc_conversion(void) {
                 current_symbol_index = 0;
             }
 						else if (silence_duration >= 2*WORD_GAP) {
-									//break;
+									break;
 						}
         } 
 

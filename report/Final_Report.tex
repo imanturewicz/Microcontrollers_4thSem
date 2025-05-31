@@ -24,7 +24,7 @@
 
 \begin{abstract}
 This report explains the final implementation of a Morse code receiver system using the
- LPC4088 microcontroller. The system was designed to decode audio-based Morse code signals 
+ LPC4088 microcontroller. The system is designed to decode audio-based Morse code signals 
  and display translated characters on an LCD screen in real time. 
  It includes analog signal processing, filtering, demodulation, Morse decoding, 
  and visual error handling.
@@ -81,8 +81,8 @@ before being routed to the ADC input pin of the experimental bundle via jumper w
 \subsection{Demodulation and Decoding Logic} 
 The process begins with continuous sampling of the input rectified through the ADC on the 
 LPC4088 microcontroller. Instead of relying on a single reading,
- a moving average filter is applied over multiple consecutive samples to smooth out noise and 
- fluctuations.
+a moving average filter is applied over multiple consecutive samples to filter out noise and smooth out
+fluctuations.
  The filtered output is then compared against a fixed threshold to determine 
 whether the signal is currently active (tone) or inactive (silence).
  If the signal is above this threshold, a tone is considered present, and a \texttt{tone\_duration}
@@ -99,11 +99,20 @@ This function compares the constructed Morse sequence with a predefined lookup t
 
 \subsection{Character Display and Output Management}
 Characters are printed on the LCD in real time. To avoid overflow, 
-the most recent 16 characters are shown, and old ones scroll off screen. 
+the most recent 16 characters are shown, the older ones scroll off screen. 
 The system also shows live Morse signals (dots and dashes) on the first LCD row.
 To handle word separation, the spaces are inserted in the message when a long silence is detected. 
 If the character displayed is a `\#` then a red LED is turned on. Aditionally, if a switch is pressed 
-the display is cleared.  
+the display is cleared. When the signal stops, the system turns off leaving the received message on
+the LCD and waits for a reboot.
+
+\subsection{Functionality overview}
+The system is set to decode Morse code signals at a rate of 50 words per minute. It accepts tones with
+frequencies between 300Hz and 800Hz. The frequency of the signal can be changed during runtime
+and the system will adapt to it automatically. The system is also resilient to noise. However,
+the precise timing of the tones is crucial for accurate decoding.
+
+
 
 
 \section{Functional Requirements Review}
@@ -122,8 +131,8 @@ the display is cleared.
 
 
 \section{Testing, Challenges and Improvements}
-Throughout the project, we faced several technical challenges that helped us understand 
-the system better and improve our implementation:
+Throughout the project, several technical challenges were encountered that improved authors'
+understanding of the system and therefore the implementation improved:
 
 \begin{itemize}
 
@@ -154,8 +163,14 @@ analog signal processing, and real-time decoding. Throughout the project,
 we learned how to read and process analog signals using the ADC on the LPC4088 microcontroller, 
 apply filtering techniques, and implement logic to accurately demodulate and decode Morse code 
 into English text.
-We successfully met the functional requirements, implemeted several extra features and  ensured 
-that our work is intuitive and user-friendly. 
+We successfully met the functional requirements, implemeted several extra features, ensured 
+that our work is intuitive and user-friendly, and even aquired the unexpected experience
+of 3D printing.
+
+All the source code can by found on the GitHub repository:
+\begin{center}
+    \url{https://github.com/imanturewicz/Microcontrollers_4thSem}
+\end{center}
 
 
 
