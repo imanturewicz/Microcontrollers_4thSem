@@ -77,6 +77,7 @@ The C code was written and compiled using Keil µVision. The software includes:
 First, the signal is obtained from the laptop's mini-jack audio output and transferred to a breadboard 
 using crocodile clips. It then passes through a DC biasing circuit (centered around 2V) 
 before being routed to the ADC input pin of the experimental bundle via jumper wires.
+The signal also goes through a buzzer, which is used to retransmit the input signal.
 
 \subsection{Demodulation and Decoding Logic} 
 The process begins with continuous sampling of the input rectified through the ADC on the 
