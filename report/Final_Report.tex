@@ -1,0 +1,165 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\geometry{a4paper, margin=1in}
+
+
+\title{Final Report: Morse Code Receiver System -- Group 4 \\ \large Microcontroller Based Systems (CCE2014)}
+\author{Ignacy Manturewicz, Bradley Tabone, Aidan Cristina, Biniam Okubamicael}
+\date{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Group 4 -- Morse Code Receiver}
+\lhead{Final Report}
+\cfoot{\thepage}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report explains the final implementation of a Morse code receiver system using the
+ LPC4088 microcontroller. The system was designed to decode audio-based Morse code signals 
+ and display translated characters on an LCD screen in real time. 
+ It includes analog signal processing, filtering, demodulation, Morse decoding, 
+ and visual error handling.
+\end{abstract}
+
+\section{Introduction}
+    The goal of this project was to design and build a working Morse code receiver that could detect, decode, 
+and display Morse audio messages. This involved developing a complete system that handles analog signal processing, 
+digital demodulation, and real-time character output.
+
+The implementation was carried out on the Embedded Artists’ LPC4088 Experiment Board, which allowed the use of
+the microcontroller’s ADC, GPIO, and LCD capabilities. Combining these hardware features 
+with a C program, resulted in turning the raw analog audio into readable text.
+
+The project was approached step by step, starting with hardware setup (DC biasing circuit) and 
+gradually expanding to comply with features like demodulation, decoding, and LCD output. In the end, everything
+was brought together into a complete and working system. 
+The project helped with gaining hands-on experience with microcontroller based systems and showed
+how different parts of a real-time application come together.
+
+\section{System Architecture}
+
+\subsection{Hardware Configuration}
+The system was built using:
+\begin{itemize}
+    \item A laptop to play audio Morse code signals.
+    \item A breadboard with a DC-biasing circuit to center the signal around \textbf{2V}.
+    \item A buzzer to retransmit the input signal.
+    \item The LPC4088 microcontroller for sampling, processing, and decoding.
+    \item A red LED used to show when the decoded message includes invalid characters.
+    \item A 2-line LCD to display the final output.
+    \item A push-button for reset.
+    \item A switch used for clearing the LCD. 
+\end{itemize}
+
+\subsection{Software Design}
+The C code was written and compiled using Keil µVision. The software includes:
+\begin{itemize}
+    \item Sampling the signal using ADC input.
+    \item Filtering the samples using moving average.
+    \item Demodulating the signal.
+    \item Decoding Morse sequences using a lookup table.
+    \item Displaying decoded characters on the LCD.
+\end{itemize}
+
+
+\section{Implementation Overview}
+
+\subsection{Signal Acquisition and Preprocessing}
+First, the signal is obtained from the laptop's mini-jack audio output and transferred to a breadboard 
+using crocodile clips. It then passes through a DC biasing circuit (centered around 2V) 
+before being routed to the ADC input pin of the experimental bundle via jumper wires.
+
+\subsection{Demodulation and Decoding Logic} 
+The process begins with continuous sampling of the input rectified through the ADC on the 
+LPC4088 microcontroller. Instead of relying on a single reading,
+ a moving average filter is applied over multiple consecutive samples to smooth out noise and 
+ fluctuations.
+ The filtered output is then compared against a fixed threshold to determine 
+whether the signal is currently active (tone) or inactive (silence).
+ If the signal is above this threshold, a tone is considered present, and a \texttt{tone\_duration}
+  counter is incremented. Conversely, if the signal drops below the threshold, the system interprets 
+  it as silence, and a \texttt{silence\_duration} counter increments. 
+
+When the tone ends, its duration is used to classify it either as a dot (\texttt{.}) 
+or as a dash (\texttt{-}). Dots and dashes are stored sequentially in a buffer, 
+building up each Morse symbol. Once the silence duration reaches a value signifying 
+either the end of a character or a word, the buffer is finalized and passed to a lookup function.
+
+This function compares the constructed Morse sequence with a predefined lookup table
+(compliant with ITU-R standard) and returns the corresponding character, or a `\#` if it is unrecognized. 
+
+\subsection{Character Display and Output Management}
+Characters are printed on the LCD in real time. To avoid overflow, 
+the most recent 16 characters are shown, and old ones scroll off screen. 
+The system also shows live Morse signals (dots and dashes) on the first LCD row.
+To handle word separation, the spaces are inserted in the message when a long silence is detected. 
+If the character displayed is a `\#` then a red LED is turned on. Aditionally, if a switch is pressed 
+the display is cleared.  
+
+
+\section{Functional Requirements Review}
+\begin{itemize}
+    \item The system displays the digits while receiving the signal.
+    \item The switch is used to clear the LCD.
+    \item The LED turns on when there is an error in the message.
+    \item System displays the message on the LCD.
+    \item After power up, system is stable and waits for the signal.
+    \item System configuration is persistent between reboots.
+    \item Error conditions are indicated by the LED.
+    \item System handles incorrect input without crashing.
+    \item The microcontroller enters sleep mode between taking samples.
+    \item System uses an interrupt handler which also suffices for multi-threading.
+\end{itemize}
+
+
+\section{Testing, Challenges and Improvements}
+Throughout the project, we faced several technical challenges that helped us understand 
+the system better and improve our implementation:
+
+\begin{itemize}
+
+     
+    \item \textbf{Stabilizing ADC Readings:} At first, the ADC readings were too noisy to use reliably. 
+    It was fixed by applying a moving average filter. This helped smooth out sudden changes 
+    and made it easier to detect tones accurately.
+
+    
+    \item \textbf{Timing Calibration:} Detecting the correct duration of tones and silences was tricky. 
+    Small changes in signal behavior could lead to dots being misread as dashes or vice versa. 
+    The timing thresholds like \texttt{DOT\_DURATION} and \texttt{DASH\_DURATION}  were tested and adjusted
+    multiple times until the system became reliable.
+    
+    \item \textbf{Error handing bug:} Initially, after detecting an error, the system would stop and wait for a reboot.
+    This behavior was later improved to allow the system to continue receiving signal 
+    while handling the error in parallel.  
+
+      
+\end{itemize}
+
+
+
+
+\section{Conclusion}
+The Morse code receiver project gave us valuable hands-on experience with microcontroller systems, 
+analog signal processing, and real-time decoding. Throughout the project, 
+we learned how to read and process analog signals using the ADC on the LPC4088 microcontroller, 
+apply filtering techniques, and implement logic to accurately demodulate and decode Morse code 
+into English text.
+We successfully met the functional requirements, implemeted several extra features and  ensured 
+that our work is intuitive and user-friendly. 
+
+
+
+
+\end{document}
+
+
