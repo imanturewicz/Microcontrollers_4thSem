@@ -26,12 +26,7 @@
     #define SYMBOL_GAP 3
     #define WORD_GAP 7
 
-// static float filtered_adc = 0.0f;
 
-// static float update_iir_filter(int raw_adc) {
-//     filtered_adc = ALPHA * raw_adc + (1.0f - ALPHA) * filtered_adc;
-//     return filtered_adc;
-//}
 
 
 int calc_movingAverage() {
@@ -115,8 +110,7 @@ int wait_for_start_signal(void) {
                 if (strcmp(current_symbol, "-.-.") == 0) { // Morse for 'C'
                     lcd_clear();
                     lcd_set_cursor(0, 0);
-                    //lcd_print("Signal Start");
-                    //delay_ms(1000);  // Small delay before starting
+                    
                     return 1;
                 }
 
@@ -145,13 +139,6 @@ void run_adc_conversion(void) {
     gpio_set_mode(P_LED_R, Output);
     gpio_set(P_LED_R, LED_OFF);
 	
-		/*if (!wait_for_start_signal()) {
-        lcd_set_cursor(0, 0);
-        lcd_print("Start Failed!");
-        return;
-    }*/
-
-    //filtered_adc = (float)adc_read();
 
 
     int tone_duration = 0;
@@ -172,11 +159,7 @@ void run_adc_conversion(void) {
 				}
 
         int averagedSample = calc_movingAverage();
-        //int raw_adc = adc_read();
-        //float filt = update_iir_filter(raw_adc);
-			
-				//delay_ms_low_power(10);
-
+       
         int signal_active = (averagedSample > (BASE + THRESHOLD));
 
         if (signal_active) {
@@ -212,18 +195,7 @@ void run_adc_conversion(void) {
 
                     if (translated == '#') {
                         gpio_set(P_LED_R, LED_ON);
-												
-                        /*lcd_set_cursor(0, 1);
-                        lcd_print("Invalid Symbol");
-                        current_symbol_index = 0;
-                        current_symbol[0] = '\0';
-                        while (1);  // halt until manual reset*/
-                    } /*else {
-                        if (sentence_index < sizeof(sentence) - 1) {
-                            sentence[sentence_index++] = translated;
-                            sentence[sentence_index] = '\0';
-                        }
-                    }*/
+						
 										if (sentence_index < sizeof(sentence) - 1) {
                             sentence[sentence_index++] = translated;
                             sentence[sentence_index] = '\0';
