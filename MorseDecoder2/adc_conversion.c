@@ -22,7 +22,6 @@
     #define BASE 2000
     #define DOT_DURATION 1
     #define DASH_DURATION 3
-    //#define DOT_GAP 1
     #define SYMBOL_GAP 3
     #define WORD_GAP 7
 
@@ -195,6 +194,8 @@ void run_adc_conversion(void) {
 
                     if (translated == '#') {
                         gpio_set(P_LED_R, LED_ON);
+											#
+										}
 						
 										if (sentence_index < sizeof(sentence) - 1) {
                             sentence[sentence_index++] = translated;
