@@ -17,14 +17,14 @@
 #define LED_ON  0
 #define LED_OFF 1
 #define ALPHA 0.1f
-#define CLK 14
+#define CLK 30
 #define THRESHOLD 50
     #define BASE 2000
-    #define DOT_DURATION 2
-    #define DASH_DURATION 6
+    #define DOT_DURATION 1
+    #define DASH_DURATION 3
     //#define DOT_GAP 1
-    #define SYMBOL_GAP 6
-    #define WORD_GAP 14
+    #define SYMBOL_GAP 3
+    #define WORD_GAP 7
 
 // static float filtered_adc = 0.0f;
 
@@ -168,8 +168,9 @@ void run_adc_conversion(void) {
 					lcd_clear();
 					sentence_index = 0;
 					sentence[0] = '\0';
-					delay_ms(10);
+					delay_ms(2);
 				}
+
         int averagedSample = calc_movingAverage();
         //int raw_adc = adc_read();
         //float filt = update_iir_filter(raw_adc);
@@ -265,6 +266,6 @@ void run_adc_conversion(void) {
         if (demod_index < sizeof(demod_buffer)) {
             demod_buffer[demod_index] = '\0';
         }
-				delay_ms_low_power(20);
+				delay_ms_low_power(14);
     }
 }
